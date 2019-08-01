@@ -1,0 +1,222 @@
+<!-- TE TESTING - JPEG Template_SB	stl-flyer-snippet-jpeg-template-sb -->
+
+{{ template.stylesheets }}
+
+<!-- ENTER COST CENTER LOGIC -->
+
+<style>
+    .cover-image {
+        background-repeat: no-repeat;
+        background-position: center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size:cover;
+    }
+    .profile-img{
+         background-repeat: no-repeat;
+        background-position: top center;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size:contain;
+    }
+    .contain-image {
+        background-repeat: no-repeat;
+        background-position: top center;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size:contain;
+    }
+    p{
+        margin:0;
+        padding: 0;
+    }
+    
+    /* FONTS */
+    /* Ministry Heavy */
+    @font-face {
+      font-family: 'MinistryHeavy';
+      src: url(https://fonts.totalexpert.net/MinistryHeavy.eot);
+      src: url(https://fonts.totalexpert.net/MinistryHeavy.eot?#iefix) format('embedded-opentype'),
+           url(https://fonts.totalexpert.net/MinistryHeavy.woff2) format('woff2'),
+           url(https://fonts.totalexpert.net/MinistryHeavy.woff) format('woff'),
+           url(https://fonts.totalexpert.net/MinistryHeavy.ttf) format('truetype'),
+           url(https://fonts.totalexpert.net/MinistryHeavy.svg#MinistryHeavy) format('svg'),
+           url(https://fonts.totalexpert.net/MinistryHeavy.otf) format('otf');
+    }
+    
+    /* Lato Regular */
+    @font-face {
+      font-family: 'LatoReg';
+      src: url(https://fonts.totalexpert.net/LatoReg.eot);
+      src: url(https://fonts.totalexpert.net/LatoReg.eot?#iefix) format('embedded-opentype'),
+           url(https://fonts.totalexpert.net/LatoReg.woff2) format('woff2'),
+           url(https://fonts.totalexpert.net/LatoReg.woff) format('woff'),
+           url(https://fonts.totalexpert.net/LatoReg.ttf) format('truetype'),
+           url(https://fonts.totalexpert.net/LatoReg.svg#LatoReg) format('svg'),
+           url(https://fonts.totalexpert.net/LatoReg.otf) format('otf');
+    }
+    
+    @font-face {
+    font-family: 'ArialNarrowRegular';
+    src: url('https://fonts.totalexpert.net/ArialNarrow.eot?#iefix') format('embedded-opentype'),
+        url('https://fonts.totalexpert.net/ArialNarrow.woff') format('woff'),
+        url('https://fonts.totalexpert.net/ArialNarrow.ttf') format('truetype'),
+        url('https://fonts.totalexpert.net/ArialNarrow.svg#ArialNarrow') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    }
+    
+    /* CONTENT STYLING */
+    
+    .flyer {
+        position: relative;
+        width: 215.9mm;
+        height: 279.30mm;
+    }
+    .footer-section {
+        width: 215.900mm;
+        height: 74.93mm;
+        position: absolute;
+        bottom: 0mm;
+        left: 0mm;
+    }
+    .co-photo {
+        position: absolute;
+        width: 19.222mm;
+        height: 28.85mm;
+        top: 7mm;
+        left: 33mm;
+    }
+    .comarketer-content {
+        position: absolute;
+        font-family: 'LatoReg';
+        color: rgb(0,0,0);
+        font-size: 10pt;
+    }
+    .left-column {
+        position: absolute;
+        width: 66.576mm;
+        height: 34.66mm;
+        left: 32mm;
+        top: 3mm;
+        line-height: 2;
+    }
+    .right-column {
+        position: absolute;
+        left: 107mm;
+        top: -1mm;
+        line-height: 2;
+    }
+    .co-name,
+    .statement {
+        font-family: 'MinistryHeavy' !important;
+        color: rgb(211,32,40) !important;
+        font-size: 11pt;
+        text-transform: uppercase;
+    }
+    .co-name {
+        line-height: 0.1 !important;
+    }
+    .ehl-logo {
+        position: absolute;
+        bottom: 8mm;
+        left: 6.5mm;
+        width: 8mm;
+        height: 8mm;
+    }
+    .disclaimer {
+        position: absolute;
+        bottom: 0mm;
+        left: 10mm;
+        width: 191.2mm;
+        height: 8.949mm;
+    }
+    .disclaimer-text {
+        font-family: 'ArialNarrowRegular';
+        font-size: 6pt;
+        color: rgb(90,88,88);
+    }
+</style>
+
+    <div class="flyer editable-image cover-image" style="background-image: url('https://totalexpert.net/media/template-assets/stl/assets/images/stl/stl-flyer-snippet-jpeg-template-sb-test.jpgx');">
+        
+        <div class="footer-section">
+            <div class="co-photo contain-image" style="background-image: url('{{ comarketer.profile_image }}');">
+                
+            <div class="comarketer-content">
+            
+                    <!-- LEFT COLUMN -->
+            
+                    <div class="left-column">
+                    {% if comarketer.name %}
+                        <p class="co-name">{{comarketer.name}}<p>
+                    {% endif %} 
+                    
+                    {% if comarketer.job_title %}
+                        <p class="co-title">{{comarketer.job_title}}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.license_title %}
+                        <p class="co-nmls">NMLS# {{comarketer.license_title}}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.address %}
+                        <p class="co-address">{{comarketer.settings.address}}{% if comarketer.settings.address_two %}, {{comarketer.settings.address_two}}{% endif %}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.address %}
+                        <p class="co-address">{{comarketer.settings.city}}, {{comarketer.settings.state}} {{comarketer.settings.zipcode}}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.license_title %}
+                        <p class="co-branch-nmls">Branch NMLS# {{comarketer.license_title}}</p>
+                    {% endif %} 
+                    </div>
+                    
+                    <!-- RIGHT COLUMN -->
+                    
+                    <div class="right-column">
+                        <p class="statement">Get in Touch</p>
+                        
+                    {% if comarketer.phone_office %}
+                        <p class="co-office">Direct: {{comarketer.phone_office}}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.phone_cell %}
+                        <p class="co-cell">Mobile: {{comarketer.phone_cell}}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.email %}
+                        <p class="co-email">{{comarketer.email}}</p>
+                    {% endif %} 
+                    
+                    {% if comarketer.website %}
+                        <p class="co-website">{{comarketer.website}}</p>
+                    {% endif %} 
+                    </div>
+                    
+                    </div>
+            </div>
+            
+            <div class="ehl-logo cover-image" style="background-image: url('https://totalexpert.net/media/template-assets/stl/assets/images/stl/EHL_grey.png');">
+            
+                    <div class="disclaimer">
+                       <p class="disclaimer-text">
+                       {% if override_disclaimer %}
+                       {{ override_disclaimer }}
+                       {% else %}
+                       {{ organization.disclaimer }} {{ additional_disclaimer }}
+                       {% endif %}
+                       </p>
+                    </div>
+            </div>
+        </div>
+        
+    </div>
+    
+
+
+

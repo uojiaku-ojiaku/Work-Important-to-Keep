@@ -1,0 +1,207 @@
+<!-- TE TESTING - JPEG Template_CB	stl-flyer-snippet-jpeg-template-cb -->
+
+{{ template.stylesheets }}
+
+<!-- ENTER COST CENTER LOGIC -->
+
+<style>
+    .cover-image {
+        background-repeat: no-repeat;
+        background-position: center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size:cover;
+    }
+    .profile-img{
+         background-repeat: no-repeat;
+        background-position: top center;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size:contain;
+    }
+    .contain-image {
+        background-repeat: no-repeat;
+        background-position: top center;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size:contain;
+    }
+    p{
+        margin:0;
+        padding: 0;
+    }
+    
+    /* FONTS */
+    
+    /* Lato Regular */
+    @font-face {
+      font-family: 'LatoReg';
+      src: url(https://fonts.totalexpert.net/LatoReg.eot);
+      src: url(https://fonts.totalexpert.net/LatoReg.eot?#iefix) format('embedded-opentype'),
+           url(https://fonts.totalexpert.net/LatoReg.woff2) format('woff2'),
+           url(https://fonts.totalexpert.net/LatoReg.woff) format('woff'),
+           url(https://fonts.totalexpert.net/LatoReg.ttf) format('truetype'),
+           url(https://fonts.totalexpert.net/LatoReg.svg#LatoReg) format('svg'),
+           url(https://fonts.totalexpert.net/LatoReg.otf) format('otf');
+    }
+    
+    @font-face {
+    font-family: 'ArialNarrowRegular';
+    src: url('https://fonts.totalexpert.net/ArialNarrow.eot?#iefix') format('embedded-opentype'),
+        url('https://fonts.totalexpert.net/ArialNarrow.woff') format('woff'),
+        url('https://fonts.totalexpert.net/ArialNarrow.ttf') format('truetype'),
+        url('https://fonts.totalexpert.net/ArialNarrow.svg#ArialNarrow') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    }
+    
+    /* CONTENT STYLING */
+    
+    .flyer {
+        position: relative;
+        width: 215.9mm;
+        height: 279.30mm;
+    }
+    .co-photo {
+        position: absolute;
+        width: 19.222mm;
+        height: 28.85mm;
+    }
+    .comarketer-content {
+        position: absolute;
+        font-family: 'LatoReg';
+    }
+    .ag-photo {
+        position: absolute;
+        width: 19.222mm;
+        height: 28.85mm;
+    }
+    .ag-logo {
+        position: absolute;
+        width: 19.222mm;
+        height: 8.019mm;
+    }
+    .agent-content {
+        position: absolute;
+    }
+    .co-name,
+    .ag-name {
+        color: rgb(211,32,40) !important;
+    }
+    .footer-section {
+        height: 74.93mm;
+    }
+    .disclaimer {
+        position: absolute;
+        width: 203.2mm;
+        height: 8.949mm;
+        font-family: 'ArialNarrowRegular';
+    }
+</style>
+
+
+<div class="flyer cover-image" style="background-image: url('{{ background_image_1 }}');">
+    
+    <div class="footer-section">
+        <!-- COMARKETER INFORMATION -->
+
+        <div class="co-photo contain-image" style="background-image: url('{{ comarketer.profile_image }}');">
+            
+        <div class="comarketer-content">
+        
+                {% if comarketer.name %}
+                    <p class="co-name">{{comarketer.name}}</p> 
+                {% endif %}
+                
+                {% if comarketer.job_title %}
+                    <p class="co-title">{{comarketer.job_title}}</p>
+                {% endif %}
+                
+                {% if comarketer.license_title %}
+                    <p class="co-nmls">{{comarketer.license_title}}</p>
+                {% endif %}
+                
+                {% if comarketer.address %}
+                    <p class="co-address">{{comarketer.address}}</p>
+                {% endif %}
+                
+                {% if comarketer.license_title %}
+                    <p class="co-branch-nmls">{{comarketer.license_title}}</p>
+                {% endif %}
+                
+                {% if comarketer.phone_office %}
+                    <p class="co-office">{{comarketer.phone_office}}</p>
+                {% endif %}
+                
+                {% if comarketer.phone_cell %}
+                    <p class="co-cell">{{comarketer.phone_cell}}</p>
+                {% endif %}
+                
+                {% if comarketer.email %}
+                    <p class="co-email">{{comarketer.email}}</p>
+                {% endif %}
+                
+                {% if comarketer.website %}
+                    <p class="co-website">{{comarketer.website}}</p>
+                {% endif %}
+                
+        </div>
+        </div>
+        
+        <!-- AGENT INFORMATION -->
+        
+        <div class="ag-photo contain-image" style="background-image: url('{{ agent.profile_image }}');">
+        <div class="ag-logo cover-image" style="background-image: url('{{ agent.logo_image }}');"></div>
+        
+        <div class="agent-content">
+        
+                {% if agent.name %}
+                    <p class="ag-name">{{agent.name}}</p>
+                {% endif %}
+                
+                {% if agent.job_title %}
+                    <p class="ag-title">{{agent.job_title}}</p>
+                {% endif %}
+                
+                {% if agent.license_title %}
+                    <p class="ag-nmls">{{agent.license_title}}</p>
+                {% endif %}
+                
+                {% if agent.address %}
+                    <p class="ag-address">{{agent.address}}</p>
+                {% endif %}
+                
+                {% if agent.license_title %}
+                    <p class="ag-branch-nmls">{{agent.license_title}}</p>
+                {% endif %}
+                
+                {% if agent.phone_office %}
+                    <p class="ag-office">{{agent.phone_office}}</p>
+                {% endif %}
+                
+                {% if agent.phone_cell %}
+                    <p class="ag-cell">{{agent.phone_cell}}</p>
+                {% endif %}
+                
+                {% if agent.email %}
+                    <p class="ag-email">{{agent.email}}</p>
+                {% endif %}
+                
+                {% if agent.website %}
+                    <p class="ag-website">{{agent.website}}</p>
+                {% endif %}
+        
+        </div>
+        </div>
+        
+        <div class="ehl-logo cover-image" style="background-image: url('https://totalexpert.net/media/template-assets/stl/assets/images/stl/EHL_grey.png');">
+        
+
+        </div>
+
+    </div>
+</div>
+

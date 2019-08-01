@@ -1,0 +1,118 @@
+.cover-image {
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:cover;
+}
+.profile-img{
+     background-repeat: no-repeat;
+    background-position: top center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size:contain;
+}
+.contain-image {
+    background-repeat: no-repeat;
+    background-position: top center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size:contain;
+}
+p{
+    margin:0;
+    padding: 0;
+}
+
+/* <!-- Setting important CSS, to override snippet CSS --> */
+.flyer{
+    height: 285.74mm !important;
+    width: 222.25mm;
+    background-image: url('https://totalexpert.net/media/assets/images/ehm/ehm-flyer-work-eagle-referral-partners-lennar.jpg');
+}
+
+/* Calling inline style background image */
+/* <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb1.jpg');"></div> */
+
+.title{
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.disclaimer a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.agent-content {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* To target all p tags in a div */
+.agent-content p {
+    line-height: 6 !important;
+}
+
+/* Line height should ideally target p tags, not an overall div */
+
+/* Use position relative on container for when reactor isn't working properly */
+.business-card{
+    height: 53.875mm;
+    width: 92.075mm;
+    position: relative;
+}
+
+* {
+background-position: center center;
+}
+
+/* text fill needs to be in points, not pixels for fonts */
+/* you cannot change line height when you have text fill */
+/* <p class="name text-fill" data-max-font-size="11" data-min-font-size="10" style="width:36mm"> */
+/* you should not have "pt" in the styling, i.e. data-max-font-size="11pt"  */
+
+/* If you don't want something/text to split and go to the next line put in a  */
+p {
+white-space: nowrap;
+}
+
+/* logos - contain
+background images are cover 
+profile - profile-img */
+
+/* The code to make Reactor work, when its not. Replace X with your width, Y with your height, in both places. */
+
+@media print{
+    @page{    
+        size: Xmm Ymm;
+        -ro-media-size: Xmm Ymm;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.table-row:nth-child(odd) {
+    background: rgb(244, 242, 243);
+}
+
+/* pointer-events: none; example. To be able to click through elements */
+
+.flyer-content {
+    width: 222.25mm;
+    height: 285.7mm;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    pointer-events: none;
+}
+
+/* Controlling how high you want a break */
+
+br {
+    height: 4mm !important;
+}

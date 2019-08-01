@@ -1,0 +1,851 @@
+Media Name: OB Rate Scenario Flyer with 1 Photo V2	138-BOX-flyer-RateV1-OptBlu-CB-EHM0084
+
+
+{{ template.stylesheets }}
+{{loan_scenarios | console}}
+
+{% capture property_address %}{{ listing.address }}{% endcapture %}
+{% capture property_address2 %}{{ listing.city }}, {{ listing.state }} {{ listing.zip }}{% endcapture %}
+
+{% if property_address.size <= 1 or property_address == null %}
+    {% assign property_address = "1234 Any Street" %}
+{% endif %}
+{% if loan_scenarios[0].va  %}
+{% assign loan_scenario_0_extra_astrisk = '*' %}
+{% endif %}
+
+{% if loan_scenarios[1].va %}
+{% assign loan_scenario_1_extra_astrisk = '*' %}
+{% endif %}
+
+{% if loan_scenarios[2].va %}
+{% assign loan_scenario_2_extra_astrisk = '*' %}
+{% endif %}
+
+{% assign public_remarks = listing.public_remarks %}
+{% if public_remarks.size == 0 or public_remarks == null %}
+    {% assign public_remarks = "Description text goes here..." %}
+{% endif %}
+
+<script>
+    window.editableChangeHandlers = [function(e, ed) {
+
+        var $el = $(e.target.targetElm);
+        var $update = null;
+
+        if ($el.hasClass('col-0')) {
+            var colClass = 'col-0';
+            var $update = $('.col-0.monthly-payment');
+        } else if ($el.hasClass('col-1')) {
+            var colClass = 'col-1';
+            var $update = $('.col-1.monthly-payment');
+        } else if ($el.hasClass('col-2')) {
+            var colClass = 'col-2';
+            var $update = $('.col-2.monthly-payment');
+        }
+        if ($update) {
+            var taxes = $('.taxes.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var insurance = $('.insurance.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var monthlyPi = $('.monthly-pi.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var monthlyMi = $('.monthly-mi.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var totalMonthly = (1 * taxes) + (1 * insurance) + (1 * monthlyPi) + (1 * monthlyMi);
+            $update.html('$' + totalMonthly.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }));
+        }
+    }];
+</script>
+
+<div class="flyer-container">
+    <div class="flyer-content">
+        <div class="flyer-top">
+            <div class="right-block">
+                <div class="title editable">Open House</div>
+                <p class="description-text editable">{{ public_remarks }}</p>
+                <div class="features">
+                    <p class="footage editable">{{ listing.sq_ft | formatNumber }} <span class="sq-ft-font">sq ft</span></p>
+                    <div class="bed-bath">
+                        <p class="beds editable">{{ listing.bed_count | formatNumber: 1 }}</p>
+                        <div class="bed-icon contain-image" style="background-image: url('https://totalexpert.net/media/assets/images/expert-mortgage/bed.png');"></div>
+                        <div class="spacer"></div>
+                        <p class="baths editable">{{ listing.bath_count | formatNumber: 1 }}</p>
+                        <div class="bath-icon contain-image" style="background-image: url('https://totalexpert.net/media/assets/images/expert-mortgage/bath.png');"></div>
+                    </div>
+                    <div class="offered-at-wrap">
+                        <p class="offered">OFFERED AT:</p>
+                        <p class="listing-price editable">${{ listing.list_price | formatNumber }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="title-bar">
+                <p class="address-1 editable">{{ property_address }}</p>
+                <p class="address-2 editable">{{ property_address2 }}</p>
+            </div>
+            <div class="main-image-wrap">
+                <div class="main-image cover-image editable-image" style="background-image:url('{{ listing.images.0 }}')"></div>
+            </div>
+            <div class="table-div">
+                <table class="loan-table">
+                    <tbody>
+                        <tr class="flyer-table">
+                        <tr class="flyer-table">
+                            <td class="white-border" style="width: 40mm;"></td>
+                            {% if loan_scenarios[0] %}
+                            <td class="white-border editable" style="width: 40mm; padding: 1mm;">{{ loan_scenarios[0].product_name }}<sup>*{{ loan_scenario_0_extra_astrisk }}</sup>
+                            {% if loan_scenarios[0].va %}<p style="font-size: 6pt">{{ organization.disclaimers.Standard_Disclaimer_VA.content }}</p>{% endif %}
+                            </td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="white-border editable" style="width: 40mm; padding: 1mm;">{{ loan_scenarios[1].product_name }}<sup>*{{ loan_scenario_1_extra_astrisk }}</sup>
+                            {% if loan_scenarios[1].va %}<p style="font-size: 6pt">{{ organization.disclaimers.Standard_Disclaimer_VA.content }}</p>{% endif %}
+                            </td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td class="white-border editable" style="width: 40mm; padding: 1mm;">{{ loan_scenarios[2].product_name }}<sup>*{{ loan_scenario_2_extra_astrisk }}</sup>
+                            {% if loan_scenarios[2].va %}<p style="font-size: 6pt">{{ organization.disclaimers.Standard_Disclaimer_VA.content }}</p>{% endif %}
+                            </td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Purchase Price</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed">${{ listing.list_price | formatNumber: 0 }}</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed">${{ listing.list_price | formatNumber: 0 }}</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td>${{ listing.list_price | formatNumber: 0 }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Down Payment</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed">${{ loan_scenarios[0].down_payment | formatNumber:0 }} ({{ loan_scenarios[0].down_payment_pct }}%)</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed">${{ loan_scenarios[1].down_payment | formatNumber:0 }} ({{ loan_scenarios[1].down_payment_pct }}%)</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td>${{ loan_scenarios[2].down_payment | formatNumber:0 }} ({{ loan_scenarios[2].down_payment_pct }}%)</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Total Loan Amount</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed">${{ loan_scenarios[0].loan_amount | formatNumber: 0}}</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed">${{ loan_scenarios[1].loan_amount | formatNumber: 0}}</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td>${{ loan_scenarios[2].loan_amount | formatNumber: 0}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Interest Rate</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed">{{ loan_scenarios[0].rate | formatNumber: 3 }}%&#42;</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed">{{ loan_scenarios[1].rate | formatNumber: 3 }}%&#42;</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td>{{ loan_scenarios[2].rate | formatNumber: 3 }}%&#42;</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Annual Percentage Rate (APR)</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed">{{ loan_scenarios[0].apr | formatNumber: 3 }}%&#42;</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed">{{ loan_scenarios[1].apr | formatNumber: 3 }}%&#42;</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td>{{ loan_scenarios[2].apr | formatNumber: 3 }}%&#42;</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Principal & Interest Payment</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed monthly-pi col-0">${{ loan_scenarios[0].monthly_payment | formatNumber: 2}}</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed monthly-pi col-1">${{ loan_scenarios[1].monthly_payment | formatNumber: 2}}</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td class="monthly-pi col-2">${{ loan_scenarios[2].monthly_payment | formatNumber: 2}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Estimated Property Tax</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed taxes col-0 editable">${{loan_scenarios[0].taxes | floatDivide: 12 | formatNumber: 2}}</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed taxes col-1 editable">${{loan_scenarios[1].taxes | floatDivide: 12 | formatNumber: 2}}</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td class="taxes col-2 editable">${{loan_scenarios[2].taxes | floatDivide: 12 | formatNumber: 2}}</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Estimated Mortgage Insurance</td>
+                            {% if loan_scenarios[0] %}
+                            {% assign testvar = '' %}
+                            <td class="dashed monthly-mi col-0">{% if loan_scenarios[0].monthly_premium >= 0  %}${{loan_scenarios[0].monthly_premium}}{% else %}-{% endif %}</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed monthly-mi col-1">{% if loan_scenarios[1].monthly_premium >= 0  %}${{loan_scenarios[1].monthly_premium}}{% else %}-{% endif %}</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td class="monthly-mi col-2">{% if loan_scenarios[2].monthly_premium >= 0  %}${{loan_scenarios[2].monthly_premium}}{% else %}-{% endif %}</td>
+                            {% endif %}
+                        </tr>
+                        <tr class="table-row">
+                            <td class="dashed">Estimated Home Owners Insurance</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed insurance col-0 editable">$0</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed insurance col-1 editable">$0</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td class="insurance col-2 editable">$0</td>
+                            {% endif %}
+                        </tr>
+
+                        <tr class="table-row last">
+                            <td class="dashed">Estimated Monthly Payment</td>
+                            {% if loan_scenarios[0] %}
+                            <td class="dashed monthly-payment col-0">${{ loan_scenarios[0].taxes | floatDivide: 12 | floatAdd: loan_scenarios[0].monthly_payment | floatAdd: loan_scenarios[0].monthly_premium | formatNumber: 2}}</td>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <td class="dashed monthly-payment col-1">${{ loan_scenarios[1].taxes | floatDivide: 12 | floatAdd: loan_scenarios[1].monthly_payment | floatAdd: loan_scenarios[1].monthly_premium | formatNumber: 2}}</td>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <td class="monthly-payment col-2">${{ loan_scenarios[2].taxes | floatDivide: 12 | floatAdd: loan_scenarios[2].monthly_payment | floatAdd: loan_scenarios[2].monthly_premium | formatNumber: 2}}</td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="rate-disclaimer">
+            {{ organization.disclaimers.Standard_Rate_Disclaimer_Start.content }}
+        </p>
+        <!-- Template Snippet -->
+        {% include 'EHM_box_flyer_cb_footer' %}
+    </div>
+</div>
+
+
+
+
+
+
+{{ template.stylesheets }}
+
+{% capture property_address %}{{ listing.address }}{% endcapture %}
+{% capture property_address2 %}{{ listing.city }}, {{ listing.state }} {{ listing.zip }}{% endcapture %}
+
+{% if property_address.size <= 1 or property_address == null %}
+    {% assign property_address = "1234 Any Street" %}
+{% endif %}
+
+{% assign public_remarks = listing.public_remarks %}
+{% if public_remarks.size == 0 or public_remarks == null %}
+    {% assign public_remarks = "Description text goes here..." %}
+{% endif %}
+
+
+<script>
+    window.editableChangeHandlers = [function(e, ed) {
+
+        var $el = $(e.target.targetElm);
+        var $update = null;
+
+        if ($el.hasClass('col-0')) {
+            var colClass = 'col-0';
+            var $update = $('.col-0.monthly-payment');
+        } else if ($el.hasClass('col-1')) {
+            var colClass = 'col-1';
+            var $update = $('.col-1.monthly-payment');
+        } else if ($el.hasClass('col-2')) {
+            var colClass = 'col-2';
+            var $update = $('.col-2.monthly-payment');
+        }
+        if ($update) {
+            var taxes = $('.taxes.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var insurance = $('.insurance.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var monthlyPi = $('.monthly-pi.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var monthlyMi = $('.monthly-mi.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var hoa = $('.hoa.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var totalMonthly = (1 * taxes) + (1 * insurance) + (1 * monthlyPi) + (1 * hoa) + (1 * monthlyMi);
+            $update.html('$' + totalMonthly.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }));
+        }
+    }];
+</script>
+
+
+<style>
+
+/* ----- FONTS ----- */
+
+/* Halyard Display Regular */
+@font-face {
+  font-family: 'HalyardDisplayReg';
+  src: url(https://fonts.totalexpert.net/HalyardDisplayReg.eot);
+  src: url(https://fonts.totalexpert.net/HalyardDisplayReg.eot?#iefix) format('embedded-opentype'),
+       url(https://fonts.totalexpert.net/HalyardDisplayReg.woff2) format('woff2'),
+       url(https://fonts.totalexpert.net/HalyardDisplayReg.woff) format('woff'),
+       url(https://fonts.totalexpert.net/HalyardDisplayReg.ttf) format('truetype'),
+       url(https://fonts.totalexpert.net/HalyardDisplayReg.svg#HalyardDisplayReg) format('svg'),
+       url(https://fonts.totalexpert.net/HalyardDisplayReg.otf) format('otf');
+}
+
+/* Halyard Text Semi Bold */
+@font-face {
+  font-family: 'HalyardTextSemiBold';
+  src: url(https://fonts.totalexpert.net/HalyardTextSemiBold.eot);
+  src: url(https://fonts.totalexpert.net/HalyardTextSemiBold.eot?#iefix) format('embedded-opentype'),
+       url(https://fonts.totalexpert.net/HalyardTextSemiBold.woff2) format('woff2'),
+       url(https://fonts.totalexpert.net/HalyardTextSemiBold.woff) format('woff'),
+       url(https://fonts.totalexpert.net/HalyardTextSemiBold.ttf) format('truetype'),
+       url(https://fonts.totalexpert.net/HalyardTextSemiBold.svg#HalyardTextSemiBold) format('svg'),
+       url(https://fonts.totalexpert.net/HalyardTextSemiBold.otf) format('otf');
+}
+
+/* Halyard Text Medium */
+@font-face {
+  font-family: 'HalyardTextMedium';
+  src: url(https://fonts.totalexpert.net/HalyardTextMedium.eot);
+  src: url(https://fonts.totalexpert.net/HalyardTextMedium.eot?#iefix) format('embedded-opentype'),
+       url(https://fonts.totalexpert.net/HalyardTextMedium.woff2) format('woff2'),
+       url(https://fonts.totalexpert.net/HalyardTextMedium.woff) format('woff'),
+       url(https://fonts.totalexpert.net/HalyardTextMedium.ttf) format('truetype'),
+       url(https://fonts.totalexpert.net/HalyardTextMedium.svg#HalyardTextMedium) format('svg'),
+       url(https://fonts.totalexpert.net/HalyardTextMedium.otf) format('otf');
+}
+
+/* Halyard Display Bold */
+@font-face {
+  font-family: 'HalyardDisplayBold';
+  src: url(https://fonts.totalexpert.net/HalyardDisplayBold.eot);
+  src: url(https://fonts.totalexpert.net/HalyardDisplayBold.eot?#iefix) format('embedded-opentype'),
+       url(https://fonts.totalexpert.net/HalyardDisplayBold.woff2) format('woff2'),
+       url(https://fonts.totalexpert.net/HalyardDisplayBold.woff) format('woff'),
+       url(https://fonts.totalexpert.net/HalyardDisplayBold.ttf) format('truetype'),
+       url(https://fonts.totalexpert.net/HalyardDisplayBold.svg#HalyardDisplayBold) format('svg'),
+       url(https://fonts.totalexpert.net/HalyardDisplayBold.otf) format('otf');
+}
+
+/* Halyard Display Semi Bold */
+@font-face {
+  font-family: 'HalyardDisplaySemiBold';
+  src: url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.eot);
+  src: url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.eot?#iefix) format('embedded-opentype'),
+       url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.woff2) format('woff2'),
+       url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.woff) format('woff'),
+       url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.ttf) format('truetype'),
+       url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.svg#HalyardDisplaySemiBold) format('svg'),
+       url(https://fonts.totalexpert.net/HalyardDisplaySemiBold.otf) format('otf');
+}
+
+/* Halyard Display Medium */
+@font-face {
+  font-family: 'HalyardDisplayMed';
+  src: url(https://fonts.totalexpert.net/HalyardDisplayMed.eot);
+  src: url(https://fonts.totalexpert.net/HalyardDisplayMed.eot?#iefix) format('embedded-opentype'),
+       url(https://fonts.totalexpert.net/HalyardDisplayMed.woff2) format('woff2'),
+       url(https://fonts.totalexpert.net/HalyardDisplayMed.woff) format('woff'),
+       url(https://fonts.totalexpert.net/HalyardDisplayMed.ttf) format('truetype'),
+       url(https://fonts.totalexpert.net/HalyardDisplayMed.svg#HalyardDisplayMed) format('svg'),
+       url(https://fonts.totalexpert.net/HalyardDisplayMed.otf) format('otf');
+}
+
+
+
+
+/* ----- GENERAL STYLES ----- */
+
+.cover-image {
+     background-repeat: no-repeat;
+     background-position: center center;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size:cover;
+    }
+
+ 
+.contain-image {
+     background-repeat: no-repeat;
+     background-position: center center;
+     -webkit-background-size: contain;
+     -moz-background-size: contain;
+     -o-background-size: contain;
+     background-size:contain;
+    }
+    
+.flyer {
+    width: 222.25mm;
+    height: 285.7mm;
+    position: relative;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+/* ----- CONTENT STYLES ----- */
+    
+
+.image1 {
+    width: 118.576mm;
+    height: 95.834mm;
+    left: 9.962mm;
+    top: 9.957mm;
+    position: absolute;
+}
+
+.listing-description {
+    width: 80.783mm;
+    height: 95.834mm;
+    top: 9.957mm;
+    left: 131.621mm;
+    position: absolute;
+    background-color: rgb(236,241,245);
+}
+
+.headline {
+    font-family: 'HalyardDisplayBold';
+    font-size: 25pt;
+    color: rgb(5,86,165);
+    width: 77.496mm;
+    height: 11.328mm;
+    top: 2.014mm;
+    left: 3.687mm;
+    position: absolute;
+}
+
+.public-comments {
+    font-family: 'HalyardDisplayReg';
+    font-size: 8pt;
+    color: rgb(99,107,109);
+    line-height: 1.3;
+    width: 73.78mm;
+    left: 3.687mm;
+    top: 15.242mm;
+    position: absolute !important;
+}
+
+.blue-line {
+    width: 73.604mm;
+    height: 2mm;
+    top: 89.534mm;
+    left: 3.511mm;
+    position: absolute;
+    border-top: 3px solid rgb(5,86,165);
+}
+
+.icon-container {
+    width: 10.053mm;
+    height: 10.053mm;
+    top: 110.312mm;
+    left: 41.081mm;
+    position: absolute;
+    background-color: rgb(255,255,255);
+    border-radius: 50%;
+    border: 2px solid rgb(5,86,165);
+    z-index: 2;
+}
+
+.location-icon {
+    width: 6.053mm;
+    height: 6.053mm;
+    top: 1.5mm;
+    left: 1.3mm;
+    position: absolute;
+}
+
+.listing-details {
+    width: 72.291mm;
+    height: 92.123mm;
+    top: 113.729mm;
+    left: 9.962mm;
+    position: absolute;
+    background-color: rgb(5,86,165);
+    color: rgb(255,255,255);
+    text-align: center;
+    z-index: 1;
+}
+
+.address {
+    width: 100%;
+    height: 13.365mm;
+    top: 9.86mm;
+    /* left: 9.82mm; */
+    position: absolute !important;
+    line-height: 1.2;
+    font-size: 14.87pt;
+    font-family: 'HalyardDisplayReg';
+    white-space: nowrap;
+}
+
+.sqft-bed-bath {
+    width: 100%;
+    height: 35.762mm;
+    top: 29.596mm;
+    position: absolute;
+    background-color: rgb(0,74,129);
+}
+
+.sqft {
+    width: 100%;
+    height: 6.56mm;
+    top: 4.755mm;
+    /* left: 9.78mm; */
+    position: absolute !important;
+    font-size: 13pt;
+    font-family: 'HalyardDisplaySemiBold';
+}
+
+.sq-ft-font {
+    font-family: 'HalyardDisplayReg';
+}
+
+.bed-icon {
+    width: 7.781mm;
+    height: 4.558mm;
+    top: 18.202mm;
+    left: 14.135mm;
+    position: absolute;
+    z-index: 2;
+}
+
+.bath-icon {
+    width: 6.529mm;
+    height: 5.713mm;
+    top: 17.046mm;
+    left: 49.553mm;
+    position: absolute;
+    z-index: 2;
+}
+
+.bed-count {
+    width: 21.907mm;
+    height: 5.931mm;
+    top: 25.254mm;
+    left: 7.071mm;
+    position: absolute !important;
+    font-size: 11pt;
+    font-family: 'HalyardDisplaySemiBold';
+}
+
+.bath-count {
+    width: 21.907mm;
+    height: 5.931mm;
+    top: 25.254mm;
+    left: 41.864mm;
+    position: absolute !important;
+    font-size: 11pt;
+    font-family: 'HalyardDisplaySemiBold';
+}
+
+.bar {
+    width: 1mm;
+    height: 14.845mm;
+    background-color: rgb(5,86,165);
+    top: 16.355mm;
+    left: 35.722mm;
+    position: absolute;
+}
+
+.offered-at {
+    width: 100%;
+    height: 5.713mm;
+    top: 71.507mm;
+    /* left: 16.986mm; */
+    position: absolute;
+    font-size: 10pt;
+    font-family: 'HalyardDisplayMed';
+}
+
+.listing-price {
+    width: 100%;
+    height: 9.179mm;
+    top: 77.22mm;
+    /* left: 16.986mm; */
+    position: absolute;
+    font-size: 20pt;
+    font-family: 'HalyardDisplayMed';
+}
+
+.rate-disclaimer {
+    width: 203.211mm;
+    height: 13.365mm;
+    left: 9.37mm;
+    top: 207.919mm;
+    position: absolute;
+    color: rgb(169,173,175);
+    font-size: 7pt;
+    font-family: 'HalyardDisplayReg';
+}
+
+.flyer-table {
+    height: 9.9mm;
+    background-color: rgb(5,86,185);
+    color: rgb(255,255,255);
+    font-size: 7pt;
+    border-right: 1px solid rgb(196,209,218);
+}
+
+
+.even {
+    background: rgb(237,241,244);
+}
+
+.odd {
+    background: rgb(255,255,255);
+}
+
+
+
+.last {
+    font-family: 'HalyardTextSemiBold' !important;
+    color: rgb(5,86,165);
+    border-bottom: 1px solid rgb(196,209,218);
+}
+
+.rate-table {
+    display: table;
+    font-family: 'HalyardDisplaySemiBold';
+    font-size: 7pt;
+    color: rgb(14,15,35);
+    border-right: 1px solid rgb(196,209,218);
+    width: 128mm;
+    height: 92.123mm;
+    left: 85.176mm;
+    bottom: 79.883mm;
+    position: absolute;
+    margin-bottom: 0 !important;
+}
+.rate-table-row {
+    display: table-row;
+}
+.rate-table-cell {
+    display: table-cell;
+    /* text-align: center; */
+    /* height: 7.3mm; */
+    padding-left: 2mm;
+    font-family: 'HalyardTextMedium';
+    border-top: 1px solid rgb(196,209,218);
+    border-left: 1px solid rgb(196,209,218);
+    vertical-align: middle;
+    font-size: 7pt;
+    line-height: 1.3 !important;
+}
+
+.white-border {
+    padding: 0;
+    text-align: center;
+}
+
+
+.row>[class*=col-] {
+    padding: 0 !important;
+}
+    
+</style>
+
+
+
+<div class="flyer">
+    
+    <div class="image1 cover-image editable-image" style="background-image: url('{{ listing.images.0 }}');"></div>
+    
+    <div class="listing-description">
+        
+        <p class="headline editable">Open House</p>
+        
+        <div class="public-comments editable">{{ public_remarks }}</div>
+        
+        <div class="blue-line"></div>
+        
+    </div>
+    
+    <div class="icon-container">
+    <div class="location-icon contain-image" style="background-image: url('https://totalexpert.net/media/template-assets/acm/assets/images/acm/acm-pinpoint-icon.png');"></div>
+    </div>
+    
+    <div class="listing-details">
+        
+        <div class="address editable">
+        <p class="listing-address1">{{ property_address }}</p>
+        <p class="listing-address2">{{ property_address2 }}</p>
+        </div>
+        
+        <div class="sqft-bed-bath">
+        
+            <p class="sqft editable">{{ listing.sq_ft | formatNumber }} <span class="sq-ft-font">SQ FT</span></p>
+            
+            <div class="bed-icon contain-image" style="background-image: url('https://totalexpert.net/media/template-assets/acm/assets/images/acm/acm-bedroom-icon.png');"></div>
+            
+            <p class="bed-count editable">{{ listing.bed_count | formatNumber: 1 }} BED</p>
+            
+            <div class="bar"></div>
+            
+            <div class="bath-icon contain-image" style="background-image: url('https://totalexpert.net/media/template-assets/acm/assets/images/acm/acm-bathroom-icon.png');"></div>
+            
+            <p class="bath-count editable">{{ listing.bath_count | formatNumber: 1 }} BATH</p>
+        
+        </div>
+        
+        <p class="offered-at">OFFERED AT</p>
+        
+        <p class="listing-price editable">${{ listing.list_price | formatNumber }}</p>
+        
+    </div>
+    
+    
+    Media Name: ACM - OptBlu Rate Sheet (Image & Description)
+
+    
+   <div class="rate-table">
+                        <div class="flyer-table rate-table-row">
+                            <div class="white-border rate-table-cell"></div>
+                            {% if loan_scenarios[0] %}
+                            <div class="white-border rate-table-cell editable">{{ loan_scenarios[0].product_name }}</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="white-border rate-table-cell editable">{{ loan_scenarios[1].product_name }}</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="white-border editable rate-table-cell">{{ loan_scenarios[2].product_name }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row even">
+                            <div class="dashed rate-table-cell">Purchase Price</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell">${{ listing.list_price | formatNumber: 0 }}</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell">${{ listing.list_price | formatNumber: 0 }}</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="rate-table-cell">${{ listing.list_price | formatNumber: 0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row odd">
+                            <div class="dashed rate-table-cell">Down Payment</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell">${{ loan_scenarios[0].down_payment | formatNumber:0 }} ({{ loan_scenarios[0].down_payment_pct }}%)</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell">${{ loan_scenarios[1].down_payment | formatNumber:0 }} ({{ loan_scenarios[1].down_payment_pct }}%)</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="rate-table-cell">${{ loan_scenarios[2].down_payment | formatNumber:0 }} ({{ loan_scenarios[2].down_payment_pct }}%)</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row even">
+                            <div class="dashed rate-table-cell">Total Loan Amount</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell">${{ loan_scenarios[0].loan_amount | formatNumber: 0}}</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell">${{ loan_scenarios[1].loan_amount | formatNumber: 0}}</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="rate-table-cell">${{ loan_scenarios[2].loan_amount | formatNumber: 0}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row odd">
+                            <div class="dashed rate-table-cell">Interest Rate</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell">{{ loan_scenarios[0].rate | formatNumber: 3 }}%</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell">{{ loan_scenarios[1].rate | formatNumber: 3 }}%</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="rate-table-cell">{{ loan_scenarios[2].rate | formatNumber: 3 }}%</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row even">
+                            <div class="dashed rate-table-cell">Annual Percentage Rate (APR)</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell">{{ loan_scenarios[0].apr | formatNumber: 3 }}%</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell">{{ loan_scenarios[1].apr | formatNumber: 3 }}%</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="rate-table-cell">{{ loan_scenarios[2].apr | formatNumber: 3 }}%</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row odd">
+                            <div class="dashed rate-table-cell">Principal & Interest Payment</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell monthly-pi col-0">${{ loan_scenarios[0].monthly_payment | formatNumber: 2}}</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell monthly-pi col-1">${{ loan_scenarios[1].monthly_payment | formatNumber: 2}}</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="monthly-pi rate-table-cell col-2">${{ loan_scenarios[2].monthly_payment | formatNumber: 2}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row even">
+                            <div class="dashed rate-table-cell">Estimated Property Tax</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell taxes col-0 editable">${{loan_scenarios[0].taxes | floatDivide: 12 | formatNumber: 2}}</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell taxes col-1 editable">${{loan_scenarios[1].taxes | floatDivide: 12 | formatNumber: 2}}</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="taxes rate-table-cell col-2 editable">${{loan_scenarios[2].taxes | floatDivide: 12 | formatNumber: 2}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row odd">
+                            <div class="dashed rate-table-cell">Estimated Insurance</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell insurance col-0 editable">$0</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell insurance col-1 editable">$0</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="insurance rate-table-cell col-2 editable">$0</div>
+                            {% endif %}
+                        </div>
+                        <div class="rate-table-row even">
+                        <div class="dashed rate-table-cell">Monthly Mortgage Insurance</div>
+                        {% if loan_scenarios[0] %}
+                        <div class="dashed rate-table-cell monthly-mi col-0 editable">${{loan_scenarios[0].monthly_premium}}</div>
+                        {% endif %} {% if loan_scenarios[1] %}
+                        <div class="dashed rate-table-cell monthly-mi col-1 editable">${{loan_scenarios[1].monthly_premium}}</div>
+                        {% endif %} {% if loan_scenarios[2] %}
+                        <div class="monthly-mi rate-table-cell col-2 editable">${{loan_scenarios[2].monthly_premium}}</div>
+                        {% endif %}
+                        </div>
+                        <div class="rate-table-row odd">
+                        <div class="dashed rate-table-cell">Monthly HOA Fee</div>
+                        {% if loan_scenarios[0] %}
+                        <div class="dashed rate-table-cell hoa col-0 editable">${{loan_scenarios[0].listingInfo.hoa_fee}}</div>
+                        {% endif %} {% if loan_scenarios[1] %}
+                        <div class="dashed rate-table-cell hoa col-1 editable">${{loan_scenarios[1].listingInfo.hoa_fee}}</div>
+                        {% endif %} {% if loan_scenarios[2] %}
+                        <div class="dashed rate-table-cell hoa col-2 editable">${{loan_scenarios[2].listingInfo.hoa_fee}}</div>
+                        {% endif %}
+                        </div>
+                        <div class="rate-table-row even last">
+                            <div class="dashed rate-table-cell last">Estimated Monthly Payment</div>
+                            {% if loan_scenarios[0] %}
+                            <div class="dashed rate-table-cell monthly-payment col-0 last">${{ loan_scenarios[0].taxes | floatDivide: 12 | floatAdd: loan_scenarios[0].monthly_payment | floatAdd: loan_scenarios[0].monthly_premium | formatNumber: 2}}</div>
+                            {% endif %} {% if loan_scenarios[1] %}
+                            <div class="dashed rate-table-cell monthly-payment col-1 last">${{ loan_scenarios[1].taxes | floatDivide: 12 | floatAdd: loan_scenarios[1].monthly_payment | floatAdd: loan_scenarios[1].monthly_premium | formatNumber: 2}}</div>
+                            {% endif %} {% if loan_scenarios[2] %}
+                            <div class="monthly-payment rate-table-cell col-2 last">${{ loan_scenarios[2].taxes | floatDivide: 12 | floatAdd: loan_scenarios[2].monthly_payment | floatAdd: loan_scenarios[2].monthly_premium | formatNumber: 2}}</div>
+                            {% endif %}
+                        </div>
+                </div>
+    
+    <div class="rate-disclaimer">{{ organization.disclaimers.Program_Disclaimer.content }} {% include 'ACM_rate_flyer_standard_disclaimer' %}</div>
+    
+    
+    {% include 'ACM_flyer_footer_cb ' %}
+    
+   
+</div>
+
+
+
+
+
+
+
+<tr class="table-row">
+    <td class="dashed">Estimated HOA</td>
+    {% if loan_scenarios[0] %}
+    <td class="dashed hoa col-0 editable">${{loan_scenarios[0].listingInfo.hoa_fee}}</td>
+    {% endif %} {% if loan_scenarios[1] %}
+    <td class="dashed hoa col-1 editable">${{loan_scenarios[1].listingInfo.hoa_fee}}</td>
+    {% endif %} {% if loan_scenarios[2] %}
+    <td class="dashed hoa col-2 editable">${{loan_scenarios[2].listingInfo.hoa_fee}}</td>
+    {% endif %}
+</tr>
+
+
+
+&#42;
+
+(1 * hoa) +

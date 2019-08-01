@@ -1,0 +1,51 @@
+
+Good Guide Templates You Made From Scratch
+move-trifold-bank-about-me-brochure-sb (Key features - Brochure/Trifold. Use of position relative instead of absolute and margin bottom)
+move-flyer-SeminarRobDurden-LO-PID2915-1F
+
+
+Rate Flyer Examples
+100-BOX-flyer-RateV2-CB-FB0035
+
+Color Scheme Examples. CFA has to turn color scheme drop down on
+Property Flyer (128223e)
+mm-flyer-property-financing-128223e-cb
+
+
+Other notes
+Search Goth instead of Gothan in TE Fonts
+
+For emails -
+[~john.andrew] Custom invite created under marketing admin. EXS ticket will need to be made to swap out default comarketing invite -  custom comarketing invite ID: 1924969
+
+EXS - database team
+
+CCBE = Cross Country...
+
+Git
+git fetch && git checkout ugonna-work
+
+New process
+
+Do not cllick duplicate access or template settings right now
+
+Check for if a template is available. Clone
+Otherwise duplicate an existing asset. Clone
+Create piece. 
+
+"Hey we got a note from a client that an asset that was in testing was granted access to all users. Just a heads up to not check the grant access settings when cloning an asset"
+
+0084 - OB integration rate flyers
+so search for example ABM0084 to find OB BOX rate flyer templates
+
+Old media management url
+https://totalexpert.net/media-template/media-form/
+
+600dpi for flyers on ABM. Just flyers. 
+
+Applying 50/50 cost split 
+Check comarketable on piece
+Then go to super admin, look up media, click actions and click media markup.
+Add cost split. 50 / 50 and press okay
+
+FYI – Fidelity will be changing to Ameris today. There might be issues with any filters based on “Fidelity”, in dashboards or views, that would need to be updated manually. 

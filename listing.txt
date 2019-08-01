@@ -1,0 +1,11 @@
+{% capture property_address %}{{ listing.address }}{% endcapture %}
+{% capture property_address2 %}{{ listing.city }}, {{ listing.state }} {{ listing.zip }}{% endcapture %}
+
+{% if property_address.size <= 1 or property_address == null %}
+    {% assign property_address = "1234 Any Street" %}
+{% endif %}
+
+{% assign public_remarks = listing.public_remarks %}
+{% if public_remarks.size == 0 or public_remarks == null %}
+    {% assign public_remarks = "Description text goes here..." %}
+{% endif %}

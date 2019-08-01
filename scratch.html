@@ -1,0 +1,230 @@
+
+<style>
+/* REMEMBER TO FIND DESIRED FONTS */
+    @font-face {
+        font-family: 'GothB';
+        src: url('https://fonts.totalexpert.net/GothB.woff2') format('woff2'),
+        url('https://fonts.totalexpert.net/GothB.woff') format('woff'),
+        url('https://fonts.totalexpert.net/GothB.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'GothL';
+        src: url('https://fonts.totalexpert.net/GothL.woff2') format('woff2'),
+        url('https://fonts.totalexpert.net/GothL.woff') format('woff'),
+        url('https://fonts.totalexpert.net/GothL.ttf') format('truetype');
+        font-weight: 100;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'GothBO';
+        src: url('https://fonts.totalexpert.net/GothBO.woff2') format('woff2'),
+        url('https://fonts.totalexpert.net/GothBO.woff') format('woff'),
+        url('https://fonts.totalexpert.net/GothBO.ttf') format('truetype');
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'GothM';
+        src: url('https://fonts.totalexpert.net/GothM.woff2') format('woff2'),
+        url('https://fonts.totalexpert.net/GothM.woff') format('woff'),
+        url('https://fonts.totalexpert.net/GothM.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @font-face {
+    font-family: 'Knockout-HTF26-JuniorFlyweight';
+    src: url('https://fonts.totalexpert.net/Knockout-HTF26-JuniorFlyweight.eot?#iefix') format('embedded-opentype'),
+        url('https://fonts.totalexpert.net/Knockout-HTF26-JuniorFlyweight.otf')  format('opentype'),
+        url('https://fonts.totalexpert.net/Knockout-HTF26-JuniorFlyweight.woff') format('woff'),
+        url('https://fonts.totalexpert.net/Knockout-HTF26-JuniorFlyweight.ttf')  format('truetype'),
+        url('https://fonts.totalexpert.net/Knockout-HTF26-JuniorFlyweight.svg#Knockout-HTF26-JuniorFlyweight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'KOFullFlyweight';
+        src: url('https://fonts.totalexpert.net/KOFullFlyweight.eot');
+        src: url('https://fonts.totalexpert.net/KOFullFlyweight.eot?#iefix') format('embedded-opentype'),
+            url('https://fonts.totalexpert.net/KOFullFlyweight.woff2') format('woff2'),
+            url('https://fonts.totalexpert.net/KOFullFlyweight.woff') format('woff'),
+            url('https://fonts.totalexpert.net/KOFullFlyweight.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+    }
+
+
+    .flyer-front-col-two{
+        width: 93.4mm;
+        height: 100%;
+        padding: 20mm 9mm 6.35mm 9mm;
+        float: left;
+    }
+
+    .lender-photo{
+        width: 22mm;
+        height: 33mm;
+        margin: 0 auto 7mm auto;
+        background-image: url('https://totalexpert.net/media/assets/images/movement/lindsey.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: top;
+    }
+
+    .lender-info{
+        text-align: center;
+        margin: 0 0 10mm 0;
+    }
+
+    .lender-info p{
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .lender-name{
+        font-family: 'GothM';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 15pt;
+        color: rgb(119,120,123);
+    }
+
+    .lender-title{
+        font-family: 'GothM';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 8pt;
+        color: rgb(119,120,123);
+        margin: 0 0 2mm 0 !important;
+    }
+
+    .lender-nmls{
+        font-family: 'GothL';
+        font-size: 8pt;
+        color: rgb(119,120,123);
+    }
+
+    .lender-phone,
+    .lender-cell,
+    .lender-fax,
+    .lender-email,
+    .lender-website{
+        font-family: 'GothBO';
+        font-size: 8pt;
+        color: rgb(119,120,123);
+    }
+
+    .lender-branding{
+        height: 8mm;
+        margin: 0 0 2mm 0;
+        padding: 4mm 0 0 0;
+        width: 23mm;
+        float: right;
+    }
+
+    .eho-logo{
+        float: right;
+        height: 6mm;
+        width: 6mm;
+        margin: 1mm 0 0 2mm;
+        background-image: url('https://totalexpert.net/media/assets/images/movement/eho.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .lender-address{
+        float: left;
+        width: 44mm;
+        height: 5mm;
+        font-family: 'GothB';
+        overflow: hidden;
+        font-size: 5pt;
+        margin: 2mm 0 0 0;
+        color: rgb(119,120,123);
+    }
+
+    .flyer-disclaimer{
+        clear: both;
+    }
+
+    .disclaimer-text{
+        font-family: 'GothBO';
+        font-size: 6pt;
+        color: rgb(119,120,123);
+        margin: 0;
+        text-align: justify;
+    }
+
+    .flyer-pid{
+        font-family: 'GothB';
+        font-size: 6pt;
+        color: rgb(119,120,123);
+        margin: 1mm 0 0 0;
+    }
+
+    .flyer-website{
+        float: right;
+        font-family: 'GothBO';
+        font-size: 6pt;
+        color: rgb(119,120,123);
+        margin: 0;
+    }
+
+    .disclaimer-text a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .flyer-front-col-two{
+        height: 209.450mm;
+        overflow:hidden;
+    }
+</style>
+
+    	<div class="flyer-front-col-two">
+    		<div class="lender-info">
+    			{% if comarketer.settings.profile_image_exists == false %}
+            	<div class="lender-photo" style="background-image: none;"></div>
+                {% else %}
+            	<div class="lender-photo" style="background-image: url('{{ comarketer.settings.profile_image }}');"></div>
+                {% endif %}
+    			<p class="lender-name">{{ comarketer.settings.f_name }} {{ comarketer.settings.l_name }}</p>
+    			<p class="lender-title">{{ comarketer.settings.job_title }}</p>
+    			<p class="lender-nmls">NMLS#: {{ comarketer.settings.license_title }}</p>
+    			{% if comarketer.settings.phone_office %}
+    			<p class="lender-phone">direct: {{ comarketer.settings.phone_office }}</p>
+    			{% endif %}
+    			{% if comarketer.settings.phone_cell %}
+    			<p class="lender-cell">cell: {{ comarketer.settings.phone_cell }}</p>
+    			{% endif %}
+    			{% if comarketer.settings.phone_fax %}
+    			<p class="lender-fax">fax: {{ comarketer.settings.phone_fax }}</p>
+    			{% endif %}
+    			<p class="lender-email">{{ comarketer.settings.email }}</p>
+    			<p class="lender-website">{{ comarketer.settings.website }}</p>
+    		</div>
+    		<div class="eho-logo"></div>
+     		<div class="lender-address">
+    		    {{ comarketer.settings.address }}, {{ comarketer.settings.address_two }}<br>{{ comarketer.settings.city }}, {{ comarketer.settings.state }} {{ comarketer.settings.zipcode }}
+    		</div>
+    		<div class="lender-branding">
+    			<div class="flyer-website">www.movement.com</div>
+    		</div>
+    		<div class="flyer-disclaimer">
+    			<p class="disclaimer-text">
+                    {{ comarketer.settings.disclaimer }} | {{ organization_disclaimer }}
+    			</p>
+    			<p class="flyer-pid">
+    				PID 2423 | Included content approved as of 6/2017
+    			</p>
+    		</div>
+    	</div>

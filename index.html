@@ -1,0 +1,314 @@
+<!-- Liquid Logic -->
+
+<!-- All templates need this -->
+{{ template.stylesheets }}
+
+<!-- Address. Put it in two seperate p tags if you want it in two lines --> 
+{{comarketer.settings.address}}{% if comarketer.settings.address_two %}, {{comarketer.settings.address_two}}{% endif %} 
+{{comarketer.settings.city}}, {{comarketer.settings.state}} {{comarketer.settings.zipcode}}
+
+<!-- Including Snippets -->
+{% include 'FHM_flyer_static_cb' %}
+
+<!-- Setting important CSS, to override snippet CSS -->
+.flyer{
+    height: 285.74mm !important;
+    width: 222.25mm;
+    background-image: url('https://totalexpert.net/media/assets/images/ehm/ehm-flyer-work-eagle-referral-partners-lennar.jpg');
+}
+
+<!-- Always assign before including, in liquid logic. See example below -->
+
+{{ template.stylesheets }}
+
+{% assign background_image = 'https://totalexpert.net/media/assets/images/ehm/survey-for.jpg' %}
+
+{% assign flyer_header = 'true' %}
+
+{% assign footer_override = 'EHM_flyer_footer_lennar_sb' %}
+
+{% include 'EHM_flyer_full_sb' %}
+
+<!-- How to toggle a snippet -->
+<!-- Find targetted toggle in template snippet under super admin. For example see below -->
+{% if user_bio == 'true' %}
+
+<!-- Enter into your template code. Make sure you use single equal sign -->
+{% assign user_bio = 'true' %}
+
+<!-- Calling inline style background image -->
+<div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb1.jpg');"></div>
+<div class="brochure cover-image" style="background-image: url('https://totalexpert.net/media/');"></div>
+<div class="lender-photo" style="background-image: url('{{ comarketer.settings.profile_image }}');"></div>
+
+<!-- Background image path for S3 -->
+https://totalexpert.net/media/template-assets/ksb/assets/images/ksb/BACKGROUND-IMAGE.jpg
+
+<!-- Applying text fill. REMEMBER TO WRAP CONTENT IN A SPAN TAG -->
+<div class="exec-name social-text text-fill" data-max-font-size="115" data-min-font-size="80"><span>{{comarketer.name}}</span></div>
+<!-- And remember to put an inline width, defining how far out you want the textfill to go -->
+<p class="email text-fill" data-max-font-size="7.5" data-min-font-size="6.5" style="width:36mm">
+<!-- you cant do text fill and editable at the same time!!!!  -->
+<div class="lo-name text-fill" data-max-font-size="67" data-min-font-size="30" style="width:750px;height:120px;"><span>{{ comarketer.name }}</span></div>
+<!-- sometimes you'll need to add a height to also get things working-->
+
+<div class="flyer-disclaimer ">
+    <div class="disclaimer-text text-fill">
+        <div>
+               {{ comarketer.settings.disclaimer }} | {{ organization_disclaimer }} 
+        </div>
+    </div>
+    <p class="flyer-id">PID {{pid_number}} | Included content approved as of {{ exp_date }} </p>
+</div>
+
+{% if comarketer.phone_cell %}
+        <p>direct: {{comarketer.phone_cell}}</p>
+{% endif %}
+
+<!-- or -->
+
+<p>{% if comarketer.phone_cell %}direct: {{comarketer.phone_cell}}{% endif %}</p>
+<p><br>{% if comarketer.phone_cell %}direct: {{comarketer.phone_cell}}{% endif %}</p>
+
+Disclaimers:
+"Example based on $0 down payment, no closing costs, 30-year fixed-rate mortgage."
+standard_long_version
+Informational_Purposes_Flyer
+Organization _Names/Logos
+RELEVANT STATE DISCLOSURES (STATE_California_Bakersfield for users in CCM Mortgage org)
+
+<!-- the statements above would equate to... -->
+
+<!-- Change state disclaimer language or Add/Remove disclaimers per flyer requirements -->
+{% capture template_disclaimers %} 
+Example based on $0 down payment, no closing costs, 30-year fixed-rate mortgage. 
+{{ organization.disclaimers.standard_long_version.content }} 
+{{ organization.disclaimers.Informational_Purposes_Flyer.content }} 
+{{ organization.disclaimers.Organization _Names/Logos.content }} 
+{% include 'state_disclaimer_logic_english' %}
+{% endcapture %}
+
+{% assign template_disclaimer = template_disclaimers %}
+
+<!-- from snippet  -->
+
+<div>{{ template_disclaimer }} {{ comarketer.disclaimer }} {{ media.org_ref_number }}</div>
+
+
+
+<div class="disclaimer">
+    <div class="disclaimer-text">
+        <div class="eh-logo contain-image"></div>
+        <p class="variable-disclaimer">
+            
+            {% if variable_disclaimer %}{{variable_disclaimer}}{% else %}{{ organization.disclaimers.Long_Disclaimer.content }}{% endif %}</p>
+    </div>
+</div>
+
+git fetch && git checkout ugonna-work
+
+S3 assests/images url
+https://totalexpert.net/media/template-assets/xyz/assets/images/xyz/
+
+replace xyz in BOTH places with the org abbreviation (aka the folder your working inside in media_dcd)
+
+
+
+<div class="disclaimer">
+    <p class="disclaimer-text">
+               {% if override_disclaimer %}
+               {{ override_disclaimer }}
+               {% else %}
+               {{ organization.disclaimer }} {{ additional_disclaimer }}
+               {% endif %}
+    </p>
+</div>
+
+<!-- HOWEVER, DO NOT TAB ENTER. MAKE LIQUID LOGIC ALL ON ONE LINE -->
+
+{% capture override_disclaimers %} 
+Example based on $0 down payment, no closing costs, 30-year fixed-rate mortgage. 
+{{ organization.disclaimers.standard_long_version.content }} 
+{{ organization.disclaimers.Informational_Purposes_Flyer.content }} 
+{{ organization.disclaimers.Organization _Names/Logos.content }} 
+{% include 'state_disclaimer_logic_english' %}
+{% endcapture %}
+
+<!-- HOWEVER, DO NOT TAB ENTER. MAKE LIQUID LOGIC ALL ON ONE LINE -->
+
+{% assign override_disclaimer = override_disclaimers %}
+
+
+
+
+
+
+
+the lender logo should not be comarketer.organization.logo_img, either 
+{‌{comarketer.settings.logo_image}‌} or {‌{comarketer.logo_image}‌}
+
+
+
+
+
+GRA disclaimers
+{% assign top_disclosure = '{{ organization.disclaimers.BASIC-S.content }}<br>{{ organization.disclaimers.GOV-1-S.content }}' %}
+
+
+/* text fill needs to be in points, not pixels for fonts */
+
+
+editable-image
+editable
+
+Place holder images url
+https://totalexpert.net/images/media-placeholder-img.png
+
+If you don't want something/text to split and go to the next line put in a 
+white-space: nowrap;
+
+logos - contain
+background images are cover 
+profile - profile-img
+
+<div class="right-side-content">
+    {% if comarketer.logo_image and comarketer.logo_image != 'https://totalexpert.net/images/media-placeholder-img.png' %}
+    <div class="company-logo contain-image editable-image" style="background-image: url('{{ comarketer.logo_image }}');"></div>
+    {% else %}
+    <div class="company-logo contain-image editable-image" style="background-image: url('https://totalexpert.net/media/assets/images/far/rsb-logo-black.png');"></div>
+    {% endif %}
+    
+    <div class="address">
+    <p>{{comarketer.settings.address}}{% if comarketer.settings.address_two %}, {{comarketer.settings.address_two}}{% endif %}</p>
+    <p>{{comarketer.settings.city}}, {{comarketer.settings.state}} {{comarketer.settings.zipcode}}</p>
+    </div>
+</div>
+
+<!-- HTML entity for spaces and bullet points -->
+
+<div class="lo-title-nmls"> {{ comarketer.job_title }}  &nbsp; &bull; &nbsp; NMLS #{{ comarketer.license_title }}</div>
+
+{{ "template.timestamp" | date: "%m/%d/%Y"}}
+
+or 
+{{ "now" | date: "%m/%d/%Y"}}
+
+or 
+{{ "today" | date: "%m/%d/%Y"}}
+
+
+Half Bath Calculation
+{% assign half_bath_count = listing.half_bath_count | plus: listing.quarter_bath_count | plus: listing.three_quarter_bath_count %}
+
+0084 - OB integration rate flyers
+0087 - for Marksman
+so search for example ABM0084 to find OB BOX rate flyer templates
+
+{{ loan_scenarios[0] | console }}
+
+if sender.cost_center ==== email
+if user.cost_center ==== websites, landing page, etc.
+if cost_center ==== print
+
+
+<div class="brochure cover-image" style="background-image: url('https://totalexpert.net/media/');"></div>
+https://totalexpert.net/media/
+
+<!-- Background image path for S3 -->
+https://totalexpert.net/media/template-assets/ksb/assets/images/ksb/BACKGROUND-IMAGE.jpg
+
+
+<script>
+    window.editableChangeHandlers = [function(e, ed) {
+
+        var $el = $(e.target.targetElm);
+        var $update = null;
+
+        if ($el.hasClass('col-0')) {
+            var colClass = 'col-0';
+            var $update = $('.col-0.monthly-payment');
+        } else if ($el.hasClass('col-1')) {
+            var colClass = 'col-1';
+            var $update = $('.col-1.monthly-payment');
+        } else if ($el.hasClass('col-2')) {
+            var colClass = 'col-2';
+            var $update = $('.col-2.monthly-payment');
+        }
+        if ($update) {
+            var taxes = $('.taxes.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var insurance = $('.insurance.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var monthlyPi = $('.monthly-pi.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var monthlyMi = $('.monthly-mi.' + colClass).text().replace(/[^\d|^\.]/g, '');
+            var totalMonthly = (1 * taxes) + (1 * insurance) + (1 * monthlyPi) + (1 * monthlyMi);
+            $update.html('$' + totalMonthly.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }));
+        }
+    }];
+</script>
+
+.ltv = LTV
+.num_payments == Term in Months
+listing.hoa_fee == HOA fee
+
+<!-- COLOR SCHEMES -->
+
+{% if template.color_scheme != "default" %}
+    background-color: {{ color_scheme.colors[0] }};
+{% else %}
+    background-color: rgb(40, 46, 110);
+{% endif %}
+
+<!-- for example... -->
+
+{% if template.color_scheme != "default" %}
+        .light-blue {
+            background-color: {{ color_scheme.colors[0] }};
+        }
+    {% else %}
+        .light-blue {
+            background-color: rgb(72,185,234);
+        }
+{% endif %}
+
+<!-- another example... -->
+
+{% if template.color_scheme != "default" %}
+    .header-background,
+    .light-blue {
+        background-color: {{ color_scheme.colors[0] }};
+    }
+    {% else %}
+    .header-background,
+    .light-blue {
+        background-color: rgb(72,185,234);
+    }
+{% endif %}
+
+<!-- and another example -->
+{% if template.color_scheme == "Yellow" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-yellow.png' %}
+{% elsif template.color_scheme == "Teal" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-teal.png' %}
+{% elsif template.color_scheme == "Light Gray" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-gray.png' %}
+{% elsif template.color_scheme == "Warm Red" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-warmred.png' %}
+{% elsif template.color_scheme == "Red" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-red.png' %}
+{% elsif template.color_scheme == "Default: Navy" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-navy.png' %}
+{% else template.color_scheme == "default" %}
+    {% assign background_image = 'https://totalexpert.net/media/assets/images/g-rate/dm-5.5x8.5-spotlight-just-listed-Opt1-cb-navy.png' %}
+{% endif %}
+
+<!-- Font Declarations or Font Decloartions Link  -->
+<link rel="stylesheet" href="https://fonts.totalexpert.net/declartions.css">
+
+
+<!-- For adding cost center logic in email editors -->
+<span style="display:none;">{% include 'STC_cost_center_logic' %}</span>
+
+Organization EHO/EHL logo
+https://totalexpert.net/marketing/{{ organization.settings.eh_logo }}
