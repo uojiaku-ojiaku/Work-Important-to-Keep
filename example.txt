@@ -49,3 +49,22 @@ Then go to super admin, look up media, click actions and click media markup.
 Add cost split. 50 / 50 and press okay
 
 FYI – Fidelity will be changing to Ameris today. There might be issues with any filters based on “Fidelity”, in dashboards or views, that would need to be updated manually. 
+
+Home Buyer Seminar - HSL	hsl-ppt-fthb	Power Point Presentation
+
+Pretty much every state has a Lincoln last name realtor. or Albany last name
+
+FOR HOSTED DOWNLOADED CONTENT
+    Check yes ---> Hosted Downloaded Content on Media
+
+    then...
+    Set up folder structure like so...
+    template name (folder)
+        > preview.jpg
+        > assets (folder)
+            > content (folder)
+                > powerpoint.ppt
+            > css (folder)
+                > colors (folder)
+                    > default.css
+                > style.css
