@@ -1,412 +1,197 @@
-{% include 'grate_logo_logic' %}
+<!-- NOTES -->
+<!-- make sure eh_logo is pulling an EHO LOGO -->
 
-{{template.stylesheets}}
+{% capture property_address %}{{ listing.address }}{% endcapture %}
+{% capture property_address2 %}{{ listing.city }}, {{ listing.state }} {{ listing.zip }}{% endcapture %}
+
+{% if property_address.size <= 1 or property_address == null %}
+    {% assign property_address = "1234 Any Street" %}
+{% endif %}
+
+{% assign public_remarks = listing.public_remarks %}
+{% if public_remarks.size == 0 or public_remarks == null %}
+    {% assign public_remarks = "Description text goes here..." %}
+{% endif %}
 
 <style>
-    /* ========== Fonts ========== */
-
-
-    @font-face {
-        font-family: 'ChronicaProRegular';
-        src: url('https://fonts.totalexpert.net/ChronicaProRegular.eot');
-        src: url('https://fonts.totalexpert.net/ChronicaProRegular.woff') format('woff'),
-            url('https://fonts.totalexpert.net/ChronicaProRegular.ttf') format('truetype'),
-            url('https://fonts.totalexpert.net/ChronicaProRegular.svg#ChronicaProRegular') format('svg'),
-            url('https://fonts.totalexpert.net/ChronicaProRegular.eot?#iefix') format('embedded-opentype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    /* Meta OT Normal */
-    @font-face {
-        font-family: 'MetaOT';
-        src: url('https://fonts.totalexpert.net/MetaOT.eot');
-        src: url('https://fonts.totalexpert.net/MetaOT.eot?#iefix') format('embedded-opentype'),
-            url('https://fonts.totalexpert.net/MetaOT.woff2') format('woff2'),
-            url('https://fonts.totalexpert.net/MetaOT.woff') format('woff'),
-            url('https://fonts.totalexpert.net/MetaOT.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'ChronicaPro-Black';
-        src: url('https://fonts.totalexpert.net/ChronicaPro-Black.eot?#iefix') format('embedded-opentype'),
-            url('https://fonts.totalexpert.net/ChronicaPro-Black.woff') format('woff'),
-            url('https://fonts.totalexpert.net/ChronicaPro-Black.ttf') format('truetype'),
-            url('https://fonts.totalexpert.net/ChronicaPro-Black.svg#ChronicaPro-Black') format('svg');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    /* ========== General Styles ========== */
-    /* Meta OT Normal */
-    @font-face {
-        font-family: 'MetaOT';
-        src: url('https://fonts.totalexpert.net/MetaOT.eot');
-        src: url('https://fonts.totalexpert.net/MetaOT.eot?#iefix') format('embedded-opentype'),
-            url('https://fonts.totalexpert.net/MetaOT.woff2') format('woff2'),
-            url('https://fonts.totalexpert.net/MetaOT.woff') format('woff'),
-            url('https://fonts.totalexpert.net/MetaOT.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
     .cover-image {
         background-repeat: no-repeat;
         background-position: center center;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
-        background-size: cover;
+        background-size:cover;
     }
-
+    .profile-img{
+        background-repeat: no-repeat;
+        background-position: top center;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size:contain;
+    }
     .contain-image {
-        background-repeat: no-repeat !important;
-        background-position: top center !important;
-        -webkit-background-size: contain !important;
-        -moz-background-size: contain !important;
-        -o-background-size: contain !important;
-        background-size: contain !important;
+        background-repeat: no-repeat;
+        background-position: top center;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size:contain;
     }
-
-    .booklet {
-        height: 285.7mm;
-        width: 222.25mm;
-        margin: 0;
-        padding: 0 !important;
-        overflow: hidden;
-    }
-
-    p {
-        margin: 0;
+    p{
+        margin:0;
         padding: 0;
     }
 
-    .booklet-content {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
+    .postcard {
         position: relative;
     }
 
-    .page1-lender-name {
-        font-family: 'ChronicaPro-Black';
-        font-size: 18pt;
-        color: white;
-        position: absolute !important;
-        text-align: right;
-        letter-spacing: .1mm;
-        height: 8mm;
-        width: 148mm;
-        right: 19mm;
-        top: 223mm;
+    /* FRONT PAGE STYLING */
 
-    }
-
-    .page1-lender-title {
-        font-family: 'ChronicaProRegular';
-        font-size: 15pt;
-        color: white;
-        position: absolute !important;
-        text-align: right;
-        letter-spacing: .1mm;
-        height: 8mm;
-        width: 148mm;
-        right: 19mm;
-        top: 230mm;
-
-    }
-
-    .page1-agent-name {
-        font-family: 'ChronicaPro-Black';
-        font-size: 18pt;
-        color: white;
-        position: absolute !important;
-        text-align: right;
-        letter-spacing: .1mm;
-        height: 8mm;
-        width: 148mm;
-        right: 19mm;
-        top: 242mm;
-    }
-
-    .page1-agent-title {
-        font-family: 'ChronicaProRegular';
-        font-size: 15pt;
-        color: white;
-        position: absolute !important;
-        text-align: right;
-        letter-spacing: .1mm;
-        height: 8mm;
-        width: 148mm;
-        right: 19mm;
-        top: 249mm;
-    }
-
-    .page2-text-container {
-        height: 150mm;
-        width: 179mm;
-        position: absolute !important;
-        top: 342mm;
-        left: 19mm;
-    }
-
-    .page2-textblock {
-        width: 100%;
-        margin: 1mm 0 4.5mm 0;
-    }
-
-    .page2-textblock-title {
-        font-family: 'ChronicaPro-Black';
-        font-size: 12pt;
-        color: rgb(209, 50, 56);
-        margin: 0 0 2.1mm 0;
-    }
-
-    .page2-textblock-desc {
-        font-family: 'ChronicaProRegular';
-        font-size: 10pt;
-        color: rgb(33, 38, 42);
-        line-height: 1.55;
-    }
-
-    .page2-textblock-contact {
-        font-family: 'ChronicaPro-Black';
-        font-size: 10pt;
-        color: rgb(33, 38, 42);
-        /* margin: 1.1mm 0 0 0; */
-    }
-
-    /* .page-four-disclaimer {
+    .large-house-image {
         position: absolute;
-        top: 0mm;
-        left: 0mm;
-    } */
-
-    .page8-agent-textblock {
-        font-family: 'ChronicaProRegular';
-        font-size: 9pt;
-        color: white;
+    }
+    .headline-text {
+        color: rgb(255,255,255);
+        font-size: 40pt;
+        text-transform: uppercase;
+        color: black;
+    }
+    .bottom-house-image {
         position: absolute;
-        height: 36mm;
-        width: 170mm;
-        bottom: 96mm;
-        left: 15mm;
     }
-
-    .page8-lender-textblock {
-        font-family: 'ChronicaProRegular';
-        font-size: 9pt;
-        color: white;
+    .right-side-text {
         position: absolute;
-        height: 36mm;
-        width: 170mm;
-        bottom: 39mm;
-        left: 15mm;
     }
+    .sub-headline-text {
+        color: rgb(255,255,255);
+        color: black;
+    }
+    .body-text-1,
+    .body-text-2,
+    .body-text-3,
+    .body-text-4 {
+        color: rgb(255,255,255);
+        color: black;
+    }
+    .cta-line {
+        color: rgb(255,255,255);
+        color: black;
+    }
+    .front-page-phone {
+        color: rgb(255,255,255);
+        color: black;
+    }
+    .front-page-email {
+        color: rgb(255,255,255);
+        color: black;
+    }
+    
+    /* CONTACT INFORMATION SECTION */
 
-
-    .page8-agent-profile,
-    .page8-lender-profile {
-        height: 28mm;
-        width: 26mm;
+    .comarketer-contact-images {
         position: absolute;
-        top: 3mm;
-        left: 1mm;
+    }
+    .co-photo {
+        position: relative;
+    }
+    .co-logo {
+        position: relative;
+    }
+    .comarketer-contact-info,
+    .agent-contact-info {
+        color: rgb(0,0,0);
+    }
+    .green-text {
+        color: green;
     }
 
-    .page8-agent-name,
-    .page8-lender-name {
-        font-size: 12pt;
-        color: rgb(203, 50, 57);
+    /* DISCLAIMER SECTION  */
+
+    .disclaimer-section {
         position: absolute;
-        left: 31.8mm;
-        top: 3.6mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 62mm;
-        height: 5mm;
     }
-
-    .page8-agent-title,
-    .page8-lender-title {
-        position: absolute;
-        left: 31.8mm;
-        top: 8.9mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 62mm;
-        height: 5mm;
-    }
-
-    .page8-agent-phone,
-    .page8-lender-phone {
-        position: absolute;
-        left: 31.8mm;
-        top: 15.8mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 62mm;
-        height: 5mm;
-    }
-
-    .page8-agent-email,
-    .page8-lender-website {
-        position: absolute;
-        left: 31.8mm;
-        top: 21.9mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 62mm;
-        height: 5mm;
-    }
-
-    .page8-lender-email {
-        position: absolute;
-        left: 31.8mm;
-        top: 27.8mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 62mm;
-        height: 5mm;
-    }
-
-    .page8-agent-logo,
-    .page8-lender-logo {
-        width: 32mm;
-        height: 14mm;
-        position: absolute;
-        left: 103mm;
-        top: 4mm;
-    }
-
-    .page8-agent-address1,
-    .page8-lender-address1 {
-        position: absolute;
-        left: 102.8mm;
-        top: 21.4mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 85mm;
-        height: 5mm;
-    }
-
-    .page8-agent-address2,
-    .page8-lender-address2 {
-        position: absolute;
-        left: 102.8mm;
-        top: 25.3mm;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 85mm;
-        height: 5mm;
-    }
-
-    .disclaimer-wrap {
-        width: 100%;
-        padding: 0 16.1mm;
-        position: absolute;
-        bottom: 17mm;
-    }
-
-    .ehl-logo {
-        width: 27.5mm;
-        height: 4.5mm;
-        float: left;
-    }
-
-    .disclaimer-wrap p {
-        font-family: 'MetaOTC';
+    .disclaimer-text {
+        color: rgb(0,0,0);
         font-size: 6pt;
-        color: white;
-        margin: 6.9px 0 0 0;
     }
 </style>
 
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb1.jpg');"></div>
-    <p class="page1-lender-name">{{ comarketer.settings.name }}</p>
-    <p class="page1-lender-title">{{ comarketer.settings.job_title }}</p>
-    <p class="page1-agent-name">{{ agent.settings.name }}</p>
-    <p class="page1-agent-title">{{ agent.settings.job_title }}</p>
+<!-- FRONT SIDE OF POSTCARD-->
 
-</div><!--  Page One End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb2.jpg');"></div>
-    <div class="page2-text-container">
-        <div class="page2-textblock">
-            <p class="page2-textblock-title editable">Rick Thomas - Sales Assistant (SA)</p>
-            <p class="page2-textblock-desc editable">Rick will work with you at the beginning of the loan process to obtain all necessary documentation. He will touch base with you at the beginning of your application and will continue to follow up with you throughout the entire loan process.</p>
-            <p class="page2-textblock-contact editable">(214) 394-2520 • Rick.Thomas@rate.com</p>
+<div class="postcard">
+
+        <div class="large-house-image editable cover-image" style="background-image: url('{{ listing.images.0 }}');"></div>
+
+        <div class="headline-text">Headline</div>
+
+        <div class="bottom-house-image editable cover-image" style="background-image: url('{{ listing.images.1 }}');"></div>
+        <div class="bottom-house-image editable cover-image" style="background-image: url('{{ listing.images.2 }}');"></div>
+        <div class="bottom-house-image editable cover-image" style="background-image: url('{{ listing.images.3 }}');"></div>
+
+        <div class="right-side-text">
+            <p class="sub-headline-text"></p>
+            <p class="body-text-1"></p>
+            <p class="body-text-2"></p>
+            <p class="body-text-3"></p>
+            <p class="body-text-4"></p>
+            <p class="cta-line"></p>
+            <p class="front-page-phone">{{ comarketer.phone_office }}</p>
+            <p class="front-page-email">{{ comarketer.email }}</p>
         </div>
-        <div class="page2-textblock">
-            <p class="page2-textblock-title editable">Angela Nguyen - Mortgage Consultant (MC)</p>
-            <p class="page2-textblock-desc editable">Angela will work closely with you to make sure your loan process starts off right! She is an expert in preparing your loan for a quick and efficient approval by asking for only the most pertinent documentation.</p>
-            <p class="page2-textblock-contact editable">(214) 845-4185 • Angela.Nguyen@rate.com</p>
-        </div>
-        <div class="page2-textblock">
-            <p class="page2-textblock-title editable">LA Silvers - Loan Coordinator (LC)</p>
-            <p class="page2-textblock-desc editable">Once your loan has been formally approved, LA will work closely with you to make sure your loan approval is cleared of all underwriting conditions (a very important step). Once your loan has been cleared to close by our Underwriting Department, she will work to ensure an on-time, accurate and smooth closing experience.</p>
-            <p class="page2-textblock-contact editable">(214) 845-4160 • LA.Silvers@rate.com</p>
-        </div>
+
+</div>
+
+<!-- BACK SIDE OF POSTCARD-->
+
+<div class="postcard">
+
+    <div class="comarketer-contact-images">
+            <div class="co-photo profile-img" style="background-image: url('{{ comarketer.profile_image }}');"></div>
+            <div class="co-logo contain-image" style="background-image: url('{{ comarketer.logo_image }}');"></div>
     </div>
-</div><!--  Page two End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb3.jpg');">
+
+            <div class="comarketer-contact-info">
+                <p class="green-text">{{ comarketer.name }}</p>
+                <p>{{ comarketer.job_title }}</p>
+                <p>NMLS# {{ comarketer.license_title }}</p>
+                <p class="green-text">Office: {{ comarketer.phone_office }}</p>
+                <p class="green-text">Cell: {{ comarketer.phone_cell }}</p>
+                <p>{{ comarketer.email }}</p>
+                <p>{{ comarketer.website }}</p>
+                <p class="green-text">{{ comarketer.company }}</p>
+                <p>{{comarketer.settings.address}}{% if comarketer.settings.address_two %}, {{comarketer.settings.address_two}}{% endif %}</p>
+                <p>{{comarketer.settings.city}}, {{comarketer.settings.state}} {{comarketer.settings.zipcode}}</p>
+            </div>
+
+    <div class="agent-contact-images">
+            <div class="ag-photo profile-img" style="background-image: url('{{ comarketer.profile_image }}');"></div>
+            <div class="ag-logo contain-image" style="background-image: url('{{ comarketer.logo_image }}');"></div>
     </div>
-</div><!--  Page three End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb4.jpg');"></div>
-</div><!--  Page four End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb5.jpg');">
 
-        <!-- <div class="page-four-disclaimer">
-            <p>{{ organization.disclaimers.CREDIT-S.content }}</p>
-            <p>{{ organization.disclaimers.REAL-S.content }}</p>
-        </div> -->
+            <div class="agent-contact-info">
+                <p class="editable green-text">{{ agent.name }}</p>
+                <p class="editable">{{ agent.job_title }}</p>
+                <p class="editable">NMLS# {{ agent.license_title }}</p>
+                <p class="editable green-text">Office: {{ agent.phone_office }}</p>
+                <p class="editable green-text">Cell: {{ agent.phone_cell }}</p>
+                <p class="editable">{{ agent.email }}</p>
+                <p class="editable">{{ agent.website }}</p>
+                <p class="editable green-text">{{ agent.company }}</p>
+                <p class="editable">{{agent.settings.address}}{% if agent.settings.address_two %}, {{agent.settings.address_two}}{% endif %}</p>
+                <p class="editable">{{agent.settings.city}}, {{agent.settings.state}} {{agent.settings.zipcode}}</p>
+            </div>
 
+    <div class="disclaimer-section">
+            <div class="eho-logo contain-image" style="background-image: url('https://totalexpert.net/marketing/{{ organization.settings.eh_logo }}');"></div>
+            <p class="disclaimer-text">
+                    {% if override_disclaimer %}
+                    {{ override_disclaimer }}
+                    {% else %}
+                    {{ organization.disclaimer }} {{ additional_disclaimer }}
+                    {% endif %}
+            </p>
     </div>
-</div><!--  Page five End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb6.jpg');"></div>
-</div><!--  Page six End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb7.jpg');"></div>
-</div><!--  Page seven End -->
-<div class="booklet">
-    <div class="booklet-content cover-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/grate-book-buyers-guide-0953-cb8.jpg');">
-        <div class="page8-agent-textblock">
-            <div class="page8-agent-profile contain-image" style="background: url('{{ agent.settings.profile_image }}');"></div>
-            <p class="page8-agent-name">{{ agent.settings.name }}</p>
-            <p class="page8-agent-title">{{ agent.settings.job_title }}</p>
-            <p class="page8-agent-phone">{% if agent.settings.phone_office %}O:&nbsp;{{ agent.settings.phone_office }}&nbsp;&nbsp;{% endif %}{% if agent.settings.phone_cell %}C:&nbsp;{{ agent.settings.phone_cell }}{% endif %}</p>
-            <p class="page8-agent-email">{{ agent.settings.email }}</p>
-            <div class="page8-agent-logo contain-image" style="background-image:url('{{ agent.settings.logo_image }}');"></div>
 
-            <p class="page8-agent-address1">{{ agent.settings.address }}{% if agent.settings.address_two %}, {{ agent.settings.address_two }}{% endif %}</p>
-
-            <p class="page8-agent-address2">{{ agent.settings.city }}, {{ agent.settings.state }}{{ agent.settings.zipcode }}</p>
-        </div>
-        <div class="page8-lender-textblock">
-            <div class="page8-lender-profile contain-image" style="background: url('{{ comarketer.settings.profile_image }}');"></div>
-            <p class="page8-lender-name">{{ comarketer.settings.name }}</p>
-            <p class="page8-lender-title">{{ comarketer.settings.job_title }}</p>
-            <p class="page8-lender-phone">{% if comarketer.settings.phone_office %}O:&nbsp;{{ comarketer.settings.phone_office }}&nbsp;&nbsp;{% endif %}{% if comarketer.settings.phone_cell %}C:&nbsp;{{ comarketer.settings.phone_cell }}{% endif %}</p>
-            <p class="page8-lender-website">{{ comarketer.settings.website | remove_first: 'www.' }}</p>
-            <p class="page8-lender-email">{{ comarketer.settings.email }}</p>
-            <div class="page8-lender-logo contain-image" style="background-image:url('https://totalexpert.net/media/assets/images/g-rate/g-rate-logo-standard-white.png');"></div>
-
-            <p class="page8-lender-address1">{{ comarketer.settings.address }}{% if comarketer.settings.address_two %}, {{ comarketer.settings.address_two }}{% endif %}</p>
-
-            <p class="page8-lender-address2">{{ comarketer.settings.city }}, {{ comarketer.settings.state }}{{ comarketer.settings.zipcode }}</p>
-
-        </div>
-        <div class="disclaimer-wrap">
-            <div class="ehl-logo contain-image" style="background-image: url('https://totalexpert.net/media/assets/images/g-rate/ehl-white.png');"></div>
-            <p style="line-height: 1.45;">&nbsp;&nbsp;NMLS: {{ comarketer.settings.license_title }};&nbsp;&nbsp;{{ comarketer.settings.disclaimer }} &#8226; {{ organization.disclaimers.GEN-D.content }}</p>
-        </div>
-    </div>
-</div><!--  Page twelve End -->
+</div>
