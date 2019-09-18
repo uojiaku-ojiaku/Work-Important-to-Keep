@@ -68,3 +68,36 @@ FOR HOSTED DOWNLOADED CONTENT
                 > colors (folder)
                     > default.css
                 > style.css
+
+Emails Notes 
+
+all inline styling
+
+table
+tbody
+tr - table row
+td - table data
+th - table header
+
+
+html attribute
+
+valign
+The purpose of the HTML valign attribute is to define the vertical alignment of the content of a table cell.
+
+optional values
+top: 	Sets the vertical alignment of cell content top.
+middle:	Sets the vertical alignment of cell content center.
+bottom:	Sets the vertical alignment of cell content bottom.
+baseline:	If set, the first text line occurs on a baseline common to all cells in the row.
+
+border and align are not 
+supported in HTML5. Use CSS instead. 
+
+Typical Styling for table elements
+<table role="presentation" style="font-family: Arial, Helvetica, sans-serif; vertical-align: top;" width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff">
+<table cellspacing="0" cellpadding="0" border="0">
+
+Typical Styling for td elements
+<td style="word-break: break-word; padding-top: 20px; padding-left: 25px; padding-bottom: 20px;" valign="top" align="left">
+<td style="vertical-align: top; width: 125px; padding-right: 25px" width="125" valign="top" align="center">

@@ -116,3 +116,20 @@ profile - profile-img */
 br {
     height: 4mm !important;
 }
+
+.green-text {
+    color: rgb({{ brand_primary_color }});
+}
+
+/* REMEMBER TO ADD rgbA to transparent backgrounds. Don't forget the A! */
+# {
+background-color: rgba(1,117,190,0.95);
+}
+
+. {
+background-image: linear-gradient(to right,rgb(26,59,102,0.95),rgb(1,117,190,0.95));
+}
+
+.table-row:nth-child(odd) {
+    background: rgb(244, 242, 243);
+}

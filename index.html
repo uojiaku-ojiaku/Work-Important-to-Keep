@@ -10,13 +10,6 @@
 <!-- Including Snippets -->
 {% include 'FHM_flyer_static_cb' %}
 
-<!-- Setting important CSS, to override snippet CSS -->
-.flyer{
-    height: 285.74mm !important;
-    width: 222.25mm;
-    background-image: url('https://totalexpert.net/media/assets/images/ehm/ehm-flyer-work-eagle-referral-partners-lennar.jpg');
-}
-
 <!-- Always assign before including, in liquid logic. See example below -->
 
 {{ template.stylesheets }}
@@ -60,6 +53,8 @@ https://totalexpert.net/media/template-assets/ksb/assets/images/ksb/BACKGROUND-I
     </div>
     <p class="flyer-id">PID {{pid_number}} | Included content approved as of {{ exp_date }} </p>
 </div>
+
+<!-- If statements, that appear if content is there and dissapear if content is not -->
 
 {% if comarketer.phone_cell %}
         <p>direct: {{comarketer.phone_cell}}</p>
@@ -196,6 +191,7 @@ or
 or 
 {{ "today" | date: "%m/%d/%Y"}}
 
+<!-- THIS IS WHERE YOU LEFT OFF -->
 
 Half Bath Calculation
 {% assign half_bath_count = listing.half_bath_count | plus: listing.quarter_bath_count | plus: listing.three_quarter_bath_count %}
@@ -312,3 +308,288 @@ listing.hoa_fee == HOA fee
 
 Organization EHO/EHL logo
 https://totalexpert.net/marketing/{{ organization.settings.eh_logo }}
+
+FOR HOSTED DOWNLOADED CONTENT
+    Check yes ---> Hosted Downloaded Content on Media
+
+    then...
+    Set up folder structure like so...
+    template name (folder)
+        > preview.jpg
+        > assets (folder)
+            > content (folder)
+                > powerpoint.ppt
+            > css (folder)
+                > colors (folder)
+                    > default.css
+                > style.css
+
+
+                
+<td style="margin: 0; padding: 0; display: block" width="575" valign="top" align="center">
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td>
+                    <a href="mailto:{{sender.email}}"style="text-decoration: none;">
+                        <img src="https://totalexpert.net/media/template-assets/cmc/assets/images/cmc/email-click-v3.png" alt="{{sender.email}}" style="display: inline-block;" width="100"/>
+                    </a>
+                </td>
+                <td>
+                    <a href="tel:{{sender.phone}}"style="text-decoration: none;">
+                        <img src="https://totalexpert.net/media/template-assets/cmc/assets/images/cmc/email-call-v3.png" alt="{{sender.phone}}" style="display: inline-block;" width="100"/>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</td>
+
+{% include 'AHL_Branding' %}
+<div class="company-logo contain-image" style="background-image: url('{{ brand_user_logo }}');">
+
+<!-- DYNAMIC CONTENT -->
+
+{% include 'AHL_Branding' %}
+
+   {% assign background_image_1 = 'https://totalexpert.net/media/template-assets/AHL/AHL-flyer-fha-program-v1-sb-1566574873/assets/images/FHA_V1.jpg' %}
+
+   <!--
+   var: footer_layout
+   comment: Assign footer on asset
+   -->
+   {% assign footer_layout = 'sb' %}
+
+{% capture dynamic_content %}
+<style>
+    .logo-top {
+        width: 48mm;
+        height: 17mm;
+        position: absolute;
+        top: 7mm;
+        left: 11mm;
+    }
+</style>
+
+<div class="logo-top contain-image" style="background-image: url('{{ brand_user_logo }}');"></div>
+{% endcapture %}
+
+
+<!-- Template being used -->
+
+   {% include 'AHL_flyer_full_SSCP1' %}
+
+
+
+.green-text {
+color: rgb({{ brand_primary_color }});
+}
+
+{% assign background_image_1 = 'https://totalexpert.net/media/assets/images/alterra/ahl-flyer-open-house-3-photo-v3-agent-front-cb.jpg' %}
+{% assign background_image_2 = 'https://totalexpert.net/media/template-assets/ahl/ahl-flyer-open-house-3-photo-v3-cb/assets/images/background-image2.jpg' %}
+
+{% if agent.team_logo != '' or agent.team_logo != 'https://totalexpert.net/images/media-placeholder-img.png' %}
+    <div class="agent-company-logo contain-image" style="background-image:url('{{ agent.logo_image }}');"></div>
+    {% else %}
+    <div class="agent-company-logo contain-image" style="background-image:url('{{ agent.logo_image }}');"></div>
+    {% endif %}
+
+{% if agent.team_logo == '' or agent.team_logo == 'https://totalexpert.net/images/media-placeholder-img.png' %}
+    <div class="agent-company-logo contain-image" style="background-image:url('{{ agent.logo_image }}');"></div>
+    {% else %}
+    <div class="agent-company-logo contain-image" style="background-image:url('{{ agent.logo_image }}');"></div>
+    {% endif %}
+
+    
+
+<div style="font-size: 10pt; color: #5a5b5d; line-height: 16pt; mso-line-height-rule: exactly;"><span style="font-size: 11pt; line-height: 18pt; mso-line-height-rule: exactly;">{{comarketer.job_title}}</span><br />
+    {% if cost_center == 109 %}
+    Lic # {{comarketer.license_title}}<br />{{comarketer.address}} {{comarketer.address_two}}<br /> {{comarketer.city}}, {{comarketer.state}} {{comarketer.zipcode}}<br /> {{comarketer_office_text}} {{comarketer.phone_office}}<br />                                              {{comarketer_cell_text}} {{comarketer.phone_cell}}<br /> <a style="color: #000;" href="mailto:{{comarketer.email}}">Email Me</a><br /> <a style="color: #000;" href="{{ comarketer.website_full }}"  target="_blank" rel="noopener noreferrer">My Website</a><br
+    /> <br /> &nbsp;
+    <div style="width: 100%; text-decoration: none !important; border: 0px; margin-top: 10px; font-size: 6px;" align="left">
+        <!-- Facebook --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_fb}};" href="{{comarketer.social_facebook}}" border="0"> <img alt="Facebook" src="https://totalexpert.net/box/_113-BOX/emails/box-facebook-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- Twitter --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_tw}};" href="{{comarketer.social_twitter}}" border="0"> <img alt="Twitter" src="https://totalexpert.net/box/_113-BOX/emails/box-twitter-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- LinkedIN --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_ld}};" href="{{comarketer.social_linkedin}}" border="0"> <img alt="LinkedIn" src="https://totalexpert.net/box/_113-BOX/emails/box-linkedin-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- google+ --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_gp}};" href="{{comarketer.social_google}}" border="0"> <img alt="LinkedIn" src="https://totalexpert.net/box/_113-BOX/emails/box-googleplus-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- YouTube --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_yt}};" href="{{comarketer.social_youtube}}" border="0"> <img alt="LinkedIn" src="https://totalexpert.net/box/_113-BOX/emails/box-youtube-icon.png" width="20" height="20" border="none" /> </a></div>
+    {% else %}
+    <div style="width: 100%; text-decoration: none !important; border: 0px; margin-top: 10px; font-size: 6px;" align="left">
+        <!-- Facebook --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_fb}};" href="{{comarketer.social_facebook}}" border="0"> <img alt="Facebook" src="https://totalexpert.net/box/_113-BOX/emails/box-facebook-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- Twitter --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_tw}};" href="{{comarketer.social_twitter}}" border="0"> <img alt="Twitter" src="https://totalexpert.net/box/_113-BOX/emails/box-twitter-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- LinkedIN --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_ld}};" href="{{comarketer.social_linkedin}}" border="0"> <img alt="LinkedIn" src="https://totalexpert.net/box/_113-BOX/emails/box-linkedin-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- google+ --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_gp}};" href="{{comarketer.social_google}}" border="0"> <img alt="LinkedIn" src="https://totalexpert.net/box/_113-BOX/emails/box-googleplus-icon.png" width="20" height="20" border="none" /> </a>
+        <!-- YouTube --><a style="padding: 0 5px; text-decoration: none; display: {{comarketer_yt}};" href="{{comarketer.social_youtube}}" border="0"> <img alt="LinkedIn" src="https://totalexpert.net/box/_113-BOX/emails/box-youtube-icon.png" width="20" height="20" border="none" /> </a></div>
+    Lic # {{comarketer.license_title}}<br />{{comarketer.address}} {{comarketer.address_two}}<br /> {{comarketer.city}}, {{comarketer.state}} {{comarketer.zipcode}}<br /> {{comarketer_office_text}} {{comarketer.phone_office}}<br />                                              {{comarketer_cell_text}} {{comarketer.phone_cell}}<br /> <a style="color: #000;" href="mailto:{{comarketer.email}}">Email Me</a><br /> <a style="color: #000;" href="{{ comarketer.website_full }}"  target="_blank" rel="noopener noreferrer">My Website</a><br
+    /> <br /> &nbsp;{% endif %}</div>
+
+
+
+    
+    <div data-block-type="general" class="te-section">
+    </div>
+    
+    <div data-block-type="general" class="te-section" data-comarketable="false">
+        {% include "FAM_flyer_footer_sb" %}
+    </div>
+    
+    <div class="te-container">
+        <div class="te-page-container">
+            <div class="te-page">
+     
+            </div>
+        </div>
+    </div>
+    
+    <div class="te-container">
+        <div class="te-page-container">
+            <div class="te-page">
+                <div class="te-section-container" data-block-type="header">
+                    <div class="te-section" data-block-type="header">
+                        <h1>Im a header block</h1>
+                    </div>
+                </div>
+     
+                <div class="te-section-container" data-block-type="footer">
+                    <div class="te-section" data-block-type="footer">
+                        <h1>Im a footer block</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% capture lender_phone_office %}{{ comarketer.settings.phone_office | remove: " " | remove: "(" | remove: ")" | remove: "-" }}{% endcapture %}
+{% capture lender_phone_office %}{{ lender_phone_office | slice: 0, 3 }}.{{ lender_phone_office | slice: 3, 3 }}.{{ lender_phone_office | slice: 6, 4 }}{% endcapture %}
+
+{% capture lender_phone_cell %}{{ comarketer.settings.phone_cell | remove: " " | remove: "(" | remove: ")" | remove: "-" }}{% endcapture %}
+{% capture lender_phone_cell %}{{ lender_phone_cell | slice: 0, 3 }}.{{ lender_phone_cell | slice: 3, 3 }}.{{ lender_phone_cell | slice: 6, 4 }}{% endcapture %}
+
+{% capture lender_phone_fax %}{{ comarketer.settings.phone_fax | remove: " " | remove: "(" | remove: ")" | remove: "-" }}{% endcapture %}
+{% capture lender_phone_fax %}{{ lender_phone_fax | slice: 0, 3 }}.{{ lender_phone_fax | slice: 3, 3 }}.{{ lender_phone_fax | slice: 6, 4 }}{% endcapture %}
+
+
+
+{% capture agent_phone_office %}{{ agent.settings.phone_office | remove: " " | remove: "(" | remove: ")" | remove: "-" }}{% endcapture %}
+{% capture agent_phone_office %}{{ agent_phone_office | slice: 0, 3 }}.{{ agent_phone_office | slice: 3, 3 }}.{{ agent_phone_office | slice: 6, 4 }}{% endcapture %}
+
+{% capture agent_phone_cell %}{{ agent.settings.phone_cell | remove: " " | remove: "(" | remove: ")" | remove: "-" }}{% endcapture %}
+{% capture agent_phone_cell %}{{ agent_phone_cell | slice: 0, 3 }}.{{ agent_phone_cell | slice: 3, 3 }}.{{ agent_phone_cell | slice: 6, 4 }}{% endcapture %}
+
+{% capture agent_phone_fax %}{{ agent.settings.phone_fax | remove: " " | remove: "(" | remove: ")" | remove: "-" }}{% endcapture %}
+{% capture agent_phone_fax %}{{ agent_phone_fax | slice: 0, 3 }}.{{ agent_phone_fax | slice: 3, 3 }}.{{ agent_phone_fax | slice: 6, 4 }}{% endcapture %}
+
+
+
+<!-- _________________________________________________________________________________________________________________________ -->
+
+
+{% if comarketer.settings.team_logo != "https://totalexpert.net/images/media-placeholder-img.png" %}
+    <style>
+        .logo-seal {
+            background-image: url('{{comarketer.settings.team_logo}}');
+        }
+        .lender-logo-disclaimer {
+            background-image:url('{{ comarketer.settings.team_logo }}');
+        }
+        .lender-logo-disclaimer-top {
+            background-image:url('{{ comarketer.settings.team_logo }}');
+        }
+    </style>
+    {% else %}
+    <style>
+        .logo-seal {
+            background-image: url('{{ brand_user_logo }}');
+        }
+        .lender-logo-disclaimer {
+            background-image:url('{{ brand_user_logo }}');
+        }
+        .lender-logo-disclaimer-top {
+            background-image:url('{{ brand_user_logo }}');
+        }
+    </style>
+{% endif %}
+
+
+
+
+{% if top_logo_position == "left" %}
+    <style>
+        .lender-logo-disclaimer-top {
+            bottom: 167.7mm;
+            left: 35mm;
+            width: 43mm;
+            height: 17mm;
+            margin: 0;
+        }
+        .eh-logo-top {
+            bottom: 168.6mm;
+            left: 11.9mm;
+            width: 21.7mm;
+            height: 13.5mm;
+        }
+    </style>
+    {% elsif top_logo_position == "right" %}
+    <style>
+        .lender-logo-disclaimer-top {
+            bottom: 167.7mm;
+            right: 12mm;
+            width: 43mm;
+            height: 17mm;
+            margin: 0;
+        }
+        .eh-logo-top {
+            bottom: 168.6mm;
+            right: 56.5mm;
+            width: 21.7mm;
+            height: 13.5mm;
+        }
+    </style>
+    {% elsif top_logo_position == "center" %}
+    <style>
+        .lender-logo-disclaimer-top {
+            bottom: 167.7mm;
+            right: 119mm;
+            width: 43mm;
+            height: 17mm;
+            margin: 0;
+        }
+        .eh-logo-top {
+            bottom: 168.6mm;
+            right: 94.5mm;
+            width: 21.7mm;
+            height: 13.5mm;
+        }
+    </style>
+{% endif %}
+
+
+{{ template.stylesheets }}
+
+{% assign additional_disclaimer = organization.disclaimers.FHA.content %}
+
+
+<style>
+    .logo-seal, .header-text, .top-color-bar, .grey-line {
+        display: none !important;
+    }
+    
+    .pc-container-front {
+        background-image:url('https://totalexpert.net/media/template-assets/CCBE/CCBE-eddm-first-time-home-buyer-te00169-sb-1568312918/assets/images/ccbe-eddm-first-time-home-buyer-te00169-front.jpg') !important;
+    }
+    
+    .pc-back {
+        background-image:url('https://totalexpert.net/media/template-assets/CCBE/CCBE-eddm-first-time-home-buyer-te00169-sb-1568312918/assets/images/ccbe-eddm-first-time-home-buyer-te00169-back.jpg') !important;
+    }
+    
+    .back-text {
+        display: none;
+    }
+</style>
+
+{% include 'CCBE_eddm_6x9_back_sb' %}
+
+.table-row:nth-child(odd) {
+    background: rgb(244, 242, 243);
+}
